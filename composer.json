@@ -13,9 +13,12 @@
     "require": {
         "yiisoft/yii2": "~2.0.0"
     },
+    "extra": {
+        "bootstrap": "uraankhayayaal\\page\\Bootstrap"
+    },
     "autoload": {
         "psr-4": {
-            "uraankhayayaal\\page\\": ""
+            "uraankhayayaal\\page\\": "src"
         }
     }
 }

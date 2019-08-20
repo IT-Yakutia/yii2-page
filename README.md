@@ -25,7 +25,55 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Once the extension is installed, simply use it in your code by  :
+Once the extension is installed, simply add in your console config:
 
 ```php
-<?= \uraankhayayaal\page\AutoloadExample::widget(); ?>```
+'controllerMap' => [
+    /* ... */
+    'migrate' => [
+            // 'class' => 'yii\console\controllers\MigrateController',
+            'migrationPath' => [
+                // '@console/migrations', // yii migrate/create app_init
+                // '@yii/rbac/migrations',
+                /* ... */
+                '@uraankhayayaal/page/migrations', // yii migrate/create add_some_table --migrationPath=@uraankhayayaal/page/migrations
+            ],
+    ],
+],
+```
+
+And just run the command:
+```
+php yii migrate
+```
+
+Set in common config params:
+
+```php
+return [
+    /* ... */
+    'domain' => 'https://yourdomain.example',
+];
+```
+
+Add urls in your backend project:
+
+```php
+Url::toRoute('/page/back/index');
+```
+
+Add RBAC roles:
+
+```
+page
+```
+
+Custom view file:
+
+```
+'custom_view_for_modules' => [
+    'page_front' => [
+        'view' => '@frontend/views/front_page/view',
+    ],
+],
+```
