@@ -37,10 +37,10 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             TimestampBehavior::className(),
-            // 'sortable' => [
-            //     'class' => \ayaalkaplin\sortable\behaviors\Sortable::className(),
-            //     'query' => self::find(),
-            // ],
+            'sortable' => [
+                'class' => \uraankhayayaal\sortable\behaviors\Sortable::className(),
+                'query' => self::find(),
+            ],
             [
                 'class' => AttributeBehavior::className(),
                 'attributes' => [

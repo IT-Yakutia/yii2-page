@@ -11,7 +11,10 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "~2.0.0"
+        "yiisoft/yii2": "~2.0.0",
+        "uraankhayayaal/yii2-sortable": "*",
+        "uraankhayayaal/yii2-materializecomponents": "*",
+        "uraankhayayaal/yii2-redactor": "*"
     },
     "extra": {
         "bootstrap": "uraankhayayaal\\page\\Bootstrap"
