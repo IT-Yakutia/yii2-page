@@ -25,9 +25,6 @@ use yii\behaviors\SluggableBehavior;
  */
 class Page extends \yii\db\ActiveRecord
 {
-    /**
-     * {@inheritdoc}
-     */
     public static function tableName()
     {
         return 'page';
@@ -67,7 +64,7 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'slug', 'user_id'], 'required'],
+            [['title'], 'required'],
             [['content'], 'string'],
             [['sort', 'no_title', 'user_id', 'is_publish', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'photo', 'slug'], 'string', 'max' => 255],
@@ -102,5 +99,10 @@ class Page extends \yii\db\ActiveRecord
             return self::find()->where(['slug' => $slug])->one();
         else
             return self::find()->where(['slug' => $slug, 'is_publish' => true])->one();
+    }
+
+    public function getPageMenuItems()
+    {
+        return $this->hasMany(PageMenuItem::className(), ['page_id' => 'id']);
     }
 }
