@@ -43,7 +43,7 @@ $this->title = 'Страницы';
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    ['class' => '\uraankhayayaal\materializecomponents\grid', 'template' => '{update}'],
+                    ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{update}'],
 
                     [
                         'header' => 'Фото',
@@ -78,7 +78,7 @@ $this->title = 'Страницы';
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                     ],
-                    ['class' => '\uraankhayayaal\materializecomponents\grid', 'template' => '{delete}'],
+                    ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{delete}'],
                     [
                         'class' => \uraankhayayaal\sortable\grid\Column::className(),
                     ],
