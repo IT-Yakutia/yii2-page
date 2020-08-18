@@ -1,21 +1,25 @@
 <?php
 
-use yii\helpers\Html;
+use uraankhayayaal\materializecomponents\grid\MaterialActionColumn;
+use uraankhayayaal\page\models\PageBlock;
+use yii\bootstrap4\Html;
 use yii\grid\GridView;
+use uraankhayayaal\sortable\grid\Column;
+use yii\grid\SerialColumn;
+use yii\widgets\LinkPager;
+use yii\helpers\Url;
 
-/* @var $this yii\web\View */
-/* @var $searchModel common\modules\page\models\PageSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
-
-$this->title = 'Страницы';
-// $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-index">
+
+<div class="page-block">
     <div class="row">
         <div class="col s12">
-            <p>
-                <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
-            </p>
+                <?= Html::a('Новый блок текста', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::RAW_TEXT_TYPE, ], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+                <?= Html::a('Новый блок графиков', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::CHART_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+                <?= Html::a('Новый блок галереи', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::GALLERY_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+                <p></p>
+                <?= Html::a('Новый блок FAQ', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::FAQ_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+                <?= Html::a('Новый блок изображения', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::IMAGE_TEXT_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
             <div class="fixed-action-btn">
                 <?= Html::a('<i class="material-icons">add</i>', ['create'], [
                     'class' => 'btn-floating btn-large waves-effect waves-light tooltipped',
@@ -36,21 +40,14 @@ $this->title = 'Страницы';
                 'options' => [
                     'data' => [
                         'sortable-widget' => 1,
-                        'sortable-url' => \yii\helpers\Url::toRoute(['sorting']),
+                        'sortable-url' => Url::toRoute(['sorting_block']),
                     ]
                 ],
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    // ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{update}'],
-                    [
-                        'header' => 'Фото',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            return $model->photo ? '<img class="materialboxed" src="' . $model->photo . '" width="70">' : '';
-                        }
-                    ],
+                    ['class' => SerialColumn::class],
+                    ['class' => MaterialActionColumn::class, 'template' => '{update}'],
                     [
                         'attribute' => 'title',
                         'format' => 'raw',
@@ -59,17 +56,19 @@ $this->title = 'Страницы';
                         }
                     ],
                     [
-                        'attribute' => 'slug',
+                        'attribute' => 'type',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a('<span class="grey-text">' . Yii::$app->params['domain'] . '</span>' . $model->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank"]);
-                        },
+                            return Html::a(PageBlock::TYPE_NAMES[$model->type], ['view', 'id' => $model->id]);
+                        }
                     ],
                     [
                         'attribute' => 'is_publish',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return $model->is_publish ? '<i class="material-icons green-text">done</i>' : '<i class="material-icons red-text">clear</i>';
+                            return $model->is_publish
+                                ? '<i class="material-icons green-text">done</i>'
+                                : '<i class="material-icons red-text">clear</i>';
                         },
                         'filter' => [0 => 'Нет', 1 => 'Да'],
                     ],
@@ -77,13 +76,13 @@ $this->title = 'Страницы';
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                     ],
-                    ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{delete}'],
+                    ['class' => MaterialActionColumn::class, 'template' => '{delete}'],
                     [
-                        'class' => \uraankhayayaal\sortable\grid\Column::className(),
+                        'class' => Column::class,
                     ],
                 ],
                 'pager' => [
-                    'class' => 'yii\widgets\LinkPager',
+                    'class' => LinkPager::class,
                     'options' => ['class' => 'pagination center'],
                     'prevPageCssClass' => '',
                     'nextPageCssClass' => '',

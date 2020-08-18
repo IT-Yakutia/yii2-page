@@ -2,36 +2,39 @@
 
 namespace uraankhayayaal\page\controllers;
 
-use Yii;
-use uraankhayayaal\page\models\Page;
+use uraankhayayaal\materializecomponents\imgcropper\actions\UploadAction;
+use uraankhayayaal\sortable\actions\Sorting;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
 use uraankhayayaal\page\models\PageBlock;
 use uraankhayayaal\page\models\PageBlockSearch;
-use uraankhayayaal\page\models\PageSearch;
-use yii\web\Controller;
+use vova07\imperavi\actions\GetFilesAction;
+use vova07\imperavi\actions\GetImagesAction;
+use vova07\imperavi\actions\UploadFileAction;
+use Yii;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use uraankhayayaal\sortable\actions\Sorting;
 
-class BackController extends Controller
+class BackBlockController extends Controller
 {
     public function behaviors()
     {
         return [
             'access' => [
-                'class' => \yii\filters\AccessControl::className(),
+                'class' => AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
                         'roles' => ['page']
                     ]
-                ],
+                ]
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
+                    'delete' => ['POST']
+                ]
+            ]
         ];
     }
 
@@ -39,50 +42,46 @@ class BackController extends Controller
     {
         return [
             'image-upload' => [
-                'class' => 'vova07\imperavi\actions\UploadFileAction',
-                'url' => '/images/imperavi/page/',
-                'path' => '@frontend/web/images/imperavi/page/',
+                'class' => UploadFileAction::class,
+                'url' => '/images/imperavi/page-block/',
+                'path' => '@frontend/web/images/imperavi/page-block/',
                 'translit' => true,
             ],
             'file-upload' => [
-                'class' => 'vova07\imperavi\actions\UploadFileAction',
-                'url' => '/images/imperavi/page/',
-                'path' => '@frontend/web/images/imperavi/page/',
+                'class' => UploadFileAction::class,
+                'url' => '/images/imperavi/page-block/',
+                'path' => '@frontend/web/images/imperavi/page-block/',
                 'uploadOnlyImage' => false,
                 'translit' => true,
             ],
             'images-get' => [
-                'class' => 'vova07\imperavi\actions\GetImagesAction',
-                'url' => '/images/imperavi/page/',
-                'path' => '@frontend/web/images/imperavi/page/',
+                'class' => GetImagesAction::class,
+                'url' => '/images/imperavi/page-block/',
+                'path' => '@frontend/web/images/imperavi/page-block/',
                 'options' => ['only' => ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.ico']],
             ],
             'files-get' => [
-                'class' => 'vova07\imperavi\actions\GetFilesAction',
-                'url' => '/images/imperavi/page/',
-                'path' => '@frontend/web/images/imperavi/page/',
+                'class' => GetFilesAction::class,
+                'url' => '/images/imperavi/page-block/',
+                'path' => '@frontend/web/images/imperavi/page-block/',
                 'options' => ['only' => ['*.txt', '*.md', '*.zip', '*.rar', '*.docx', '*.doc', '*.pdf', '*.xls']],
             ],
             'uploadImg' => [
-                'class' => 'uraankhayayaal\materializecomponents\imgcropper\actions\UploadAction',
-                'url' => '/images/uploads/page/',
-                'path' => '@frontend/web/images/uploads/page/',
+                'class' => UploadAction::class,
+                'url' => '/images/uploads/page-block/',
+                'path' => '@frontend/web/images/uploads/page-block/',
                 'maxSize' => 10485760,
             ],
             'sorting' => [
-                'class' => Sorting::class,
-                'query' => Page::find(),
-            ],
-            'sorting_block' => [
                 'class' => Sorting::class,
                 'query' => PageBlock::find(),
             ],
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex($id)
     {
-        $searchModel = new PageSearch();
+        $searchModel = new PageBlockSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -93,27 +92,26 @@ class BackController extends Controller
 
     public function actionView($id)
     {
-        $searchModel = new PageBlockSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionCreate()
+    public function actionCreate($page_id, $type)
     {
-        $model = new Page();
+        $model = new PageBlock();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно создана!');
-            return $this->redirect(['index']);
+            return $this->redirect(['back/view', 
+                'id' => $page_id
+            ]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'type' => $type,
+            'page_id' => $page_id,
         ]);
     }
 
@@ -123,7 +121,7 @@ class BackController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно изменена!');
-            return $this->redirect(['view', 'id' => $id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -140,7 +138,7 @@ class BackController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = Page::findOne($id)) !== null) {
+        if (($model = PageBlock::findOne($id)) !== null) {
             return $model;
         }
 
