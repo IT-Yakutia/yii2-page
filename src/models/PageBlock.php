@@ -27,7 +27,7 @@ class PageBlock extends ActiveRecord
         self::CHART_TYPE => 'Блок графиков',
         self::GALLERY_TYPE => 'Блок галереи',
         self::FAQ_TYPE => 'Блок FAQ',
-        self::IMAGE_TEXT_TYPE => 'Блок текста с изображениями',
+        self::IMAGE_TEXT_TYPE => 'Блок текста с изображением',
     ];
 
     public static function tableName()
