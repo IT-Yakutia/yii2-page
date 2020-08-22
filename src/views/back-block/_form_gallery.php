@@ -6,6 +6,7 @@ use ityakutia\gallery\widgets\imgUploader\WGalleryImgUploader;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
+use uraankhayayaal\page\models\PageBlock;
 
 ?>
 
@@ -28,9 +29,6 @@ use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
             echo WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']);
         }
     ?>
-
-    <?= /* скрытый инпут */ $form->field($model, 'type')->hiddenInput(['value' => $type])->label(false) ?>
-    <?= /* скрытый инпут */ $form->field($model, 'page_id')->hiddenInput(['value' => $page_id])->label(false) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

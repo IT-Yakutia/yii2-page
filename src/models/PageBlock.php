@@ -2,10 +2,27 @@
 
 namespace uraankhayayaal\page\models;
 
+use ityakutia\gallery\models\GalleryPageBlock;
 use uraankhayayaal\sortable\behaviors\Sortable;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
+/**
+ * This is the model class for table "page_block"
+ * 
+ * @property int $id
+ * @property string $title
+ * @property string $content
+ * @property string $photo
+ * @property int $sort
+ * @property int $page_id
+ * @property int $is_publish
+ * @property int $status
+ * @property int $created_at
+ * @property int $updated_at
+ * 
+ * @property GalleryPageBlock[] $galleryPageBlocks
+ */
 class PageBlock extends ActiveRecord
 {
     const RAW_TEXT_TYPE = 0;
@@ -28,6 +45,14 @@ class PageBlock extends ActiveRecord
         self::GALLERY_TYPE => 'Блок галереи',
         self::FAQ_TYPE => 'Блок FAQ',
         self::IMAGE_TEXT_TYPE => 'Блок текста с изображением',
+    ];
+
+    const BLOCK_WIDGET = [
+        self::RAW_TEXT_TYPE => 'frontend\themes\basic\widgets\page_text\TextBlockWidget',
+        self::CHART_TYPE => 'frontend\themes\basic\widgets\page_chart\ChartBlockWidget',
+        self::GALLERY_TYPE => 'frontend\themes\basic\widgets\page_gallery\GalleryBlockWidget',
+        self::FAQ_TYPE => 'frontend\themes\basic\widgets\page_faq\FaqBlockWidget',
+        self::IMAGE_TEXT_TYPE => 'frontend\themes\basic\widgets\page_img_block\ImgBlockWidget',
     ];
 
     public static function tableName()
@@ -70,5 +95,18 @@ class PageBlock extends ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+        /**
+     * @return ActiveQuery
+     */
+    public function getGalleryPageBlocks()
+    {
+        return $this->hasMany(GalleryPageBlock::class, ['block_id' => 'id']);
+    }
+
+    public function getPageBlockFaq()
+    {
+        return $this->hasMany(PageBlockFaq::class, ['block_id' => 'id']);
     }
 }

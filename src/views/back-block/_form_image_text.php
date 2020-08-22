@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 use uraankhayayaal\materializecomponents\imgcropper\Cropper;
+use uraankhayayaal\page\models\PageBlock;
 use uraankhayayaal\redactor\RedactorWidget;
 use yii\helpers\Url;
 
@@ -16,9 +17,6 @@ use yii\helpers\Url;
     ]); ?>
 
     <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
-
-    <?= /* скрытый инпут */ $form->field($model, 'type')->hiddenInput(['value' => $type])->label(false) ?>
-    <?= /* скрытый инпут */ $form->field($model, 'page_id')->hiddenInput(['value' => $page_id])->label(false) ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

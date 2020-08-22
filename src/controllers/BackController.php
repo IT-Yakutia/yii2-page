@@ -94,7 +94,7 @@ class BackController extends Controller
     public function actionView($id)
     {
         $searchModel = new PageBlockSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
 
         return $this->render('view', [
             'model' => $this->findModel($id),

@@ -3,11 +3,13 @@
 use yii\db\Migration;
 
 /**
- * Class m200816_112156_add_page_block
+ * Class m200820_052646_add_page_block_faq
  */
-class m200816_112156_add_page_block extends Migration
+class m200820_052646_add_page_block_faq extends Migration
 {
-
+    /**
+     * {@inheritdoc}
+     */
     public function safeUp()
     {
         $tableOptions = null;
@@ -16,14 +18,12 @@ class m200816_112156_add_page_block extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable('page_block', [
+        $this->createTable('page_block_faq', [
             'id' => $this->primaryKey(),
             'title' => $this->string(),
-            'type' => $this->integer(),
             'content' => $this->text(),
-            'photo' => $this->string(),
 
-            'page_id' => $this->integer(),
+            'block_id' => $this->integer(),
 
             'sort' => $this->integer(),
 
@@ -33,15 +33,18 @@ class m200816_112156_add_page_block extends Migration
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->addForeignKey('page_block-page-fkey', 'page_block', 'page_id', 'page', 'id', 'CASCADE', 'CASCADE');
-        $this->createIndex('page_block-page-idx', 'page_block', 'page_id');
+        $this->addForeignKey('page_block_faq-page_block-fkey', 'page_block_faq', 'block_id', 'page_block', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('page_block_faq-page_block-idx', 'page_block_faq', 'block_id');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function safeDown()
     {
-        $this->dropForeignKey('page_block-page-fkey', 'page_block');
-        $this->dropIndex('page_block-page-idx', 'page_block');
+        $this->dropForeignKey('page_block_faq-page_block-fkey', 'page_block_faq');
+        $this->dropIndex('page_block_faq-page_block-idx', 'page_block_faq');
 
-        $this->dropTable('page_block');
+        $this->dropTable('page_block_faq');
     }
 }

@@ -25,6 +25,14 @@ use yii\behaviors\SluggableBehavior;
  */
 class Page extends \yii\db\ActiveRecord
 {
+    const BLOCK_WIDGET = [
+        PageBlock::RAW_TEXT_TYPE => 'frontend\themes\basic\widgets\page_text\TextBlockWidget',
+        PageBlock::CHART_TYPE => 'frontend\themes\basic\widgets\page_chart\ChartBlockWidget',
+        PageBlock::GALLERY_TYPE => 'frontend\themes\basic\widgets\page_gallery\GalleryBlockWidget',
+        PageBlock::FAQ_TYPE => 'frontend\themes\basic\widgets\page_faq\FaqBlockWidget',
+        PageBlock::IMAGE_TEXT_TYPE => 'frontend\themes\basic\widgets\page_img_block\ImgBlockWidget',
+    ];
+
     public static function tableName()
     {
         return 'page';
@@ -104,5 +112,126 @@ class Page extends \yii\db\ActiveRecord
     public function getPageMenuItems()
     {
         return $this->hasMany(PageMenuItem::className(), ['page_id' => 'id']);
+    }
+
+    public function getPageBlocks()
+    {
+        return $this->hasMany(PageBlock::class, ['page_id' => 'id']);
+    }
+
+    public function getBlocks()
+    {
+        $page = $this->getPageBlocks()->all();
+        if (empty($page)) {
+            return [];
+        }
+
+        $blocks = [];
+        foreach ($page as $block) {
+
+            if (!$block->is_publish) {
+                continue;
+            }
+
+            if ($block->type === PageBlock::RAW_TEXT_TYPE) {
+                $blocks[] = $this->renderRawBlock($block);
+            }
+
+            if ($block->type === PageBlock::IMAGE_TEXT_TYPE) {
+                $blocks[] = $this->renderImageTextBlock($block);
+            }
+
+            if ($block->type === PageBlock::FAQ_TYPE) {
+                $blocks[] = $this->renderFaqBlock($block);
+            }
+
+            if ($block->type === PageBlock::GALLERY_TYPE) {
+                $blocks[] = $this->renderGalleryBlock($block);
+            }
+        }
+
+        return $blocks;
+    }
+
+    private function renderRawBlock($block)
+    {
+        $data = [
+            'title' => $block->title ?? '',
+            'content' => $block->content ?? ''
+        ];
+
+        return self::render($block->type, $data);
+    }
+
+    private function renderImageTextBlock($block)
+    {
+        $data = [
+            'title' => $block->title ?? '',
+            'content' => $block->content ?? '',
+            'photo' => $block->photo ?? ''
+        ];
+
+        return self::render($block->type, $data);
+    }
+
+    private function renderFaqBlock($block)
+    {
+        $data['title'] = $block->title ?? '';
+
+        $block_faq = $block->getPageBlockFaq()->all();
+
+        $data['items'] = [];
+        if (!empty($block_faq)) {
+            foreach ($block_faq as $item) {
+
+                if (!$item->is_publish) {
+                    continue;
+                }
+
+                $data['items'][] = [
+                    'label' => $item->title ?? '',
+                    'content' => $item->content ?? '',
+                    'contentOptions' => []
+                ];
+            }
+        }
+
+        return self::render($block->type, $data);
+    }
+
+    private function renderGalleryBlock($block)
+    {
+        $data['title'] = $block->title ?? '';
+
+        $block_gallery = $block->getGalleryPageBlocks()->all();
+
+        $data['items'] = [];
+        if (!empty($block_gallery)) {
+            foreach ($block_gallery as $item) {
+                $photos = $item->getPhoto()->all();
+                if (!empty($photos)) {
+                    foreach ($photos as $photo) {
+                        $image = '<img class="w-100" src="' . $photo->original . '" alt="gallery image">';
+                        $name = $photo->name;
+                        $text = $photo->description;
+                        $data['items'][] =
+                            [
+                                'content' => $image,
+                                'caption' => '<h4>' . $name . '</h4><p>' . $text . '</p>',
+                                'captionOptions' => ['class' => ['d-none', 'd-md-block']],
+                                'options' => [],
+                            ];
+                    }
+                }
+            }
+        }
+
+        return self::render($block->type, $data);
+    }
+
+    private static function render($type, $data)
+    {
+        $class = PageBlock::BLOCK_WIDGET[$type];
+        return $class::widget(['data' => $data]);
     }
 }

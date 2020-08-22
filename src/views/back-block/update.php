@@ -6,11 +6,11 @@
 $this->title = 'Редактирование: ' . $model->title;
 ?>
 <div class="page-update">
-    <div class="row">
-        <div class="col s12">
-		    <?= $this->render('_form', [
-		        'model' => $model,
-		    ]) ?>
+	<div class="row">
+		<div class="col s12">
+			<?= $this->render('_form_' . array_search($model->type, $model::TYPES), [
+				'model' => $model,
+			]); ?>
 		</div>
 	</div>
 </div>

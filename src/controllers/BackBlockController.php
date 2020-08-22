@@ -79,10 +79,10 @@ class BackBlockController extends Controller
         ];
     }
 
-    public function actionIndex($id)
+    public function actionIndex($page_id)
     {
         $searchModel = new PageBlockSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $page_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -100,28 +100,31 @@ class BackBlockController extends Controller
     public function actionCreate($page_id, $type)
     {
         $model = new PageBlock();
+        $model->page_id = $page_id;
+        $model->type = $type;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно создана!');
-            return $this->redirect(['back/view', 
+            return $this->redirect([
+                'back/view',
                 'id' => $page_id
             ]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'type' => $type,
-            'page_id' => $page_id,
         ]);
     }
 
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно изменена!');
-            return $this->redirect(['index']);
+            return $this->redirect([
+                'back/view',
+                'id' => $model->page_id
+            ]);
         }
 
         return $this->render('update', [
@@ -129,11 +132,17 @@ class BackBlockController extends Controller
         ]);
     }
 
-    public function actionDelete($id)
+    public function actionDelete()
     {
-        if($this->findModel($id)->delete() !== false)
+        $model = $this->findModel(Yii::$app->request->post()['id']);
+        $page_id = $model->page_id;
+
+        if ($model->delete() !== false)
             Yii::$app->session->setFlash('success', 'Запись успешно удалена!');
-        return $this->redirect(['index']);
+        return $this->redirect([
+            'back/view',
+            'id' => $page_id
+        ]);
     }
 
     protected function findModel($id)

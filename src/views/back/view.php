@@ -51,18 +51,19 @@ $this->title = 'Страница: ' . $model->title;
                         <?= Html::a($model->slug, ['update', 'id' => $model->id]) ?>
                     </span>
                 </li>
-                <?php if ($model->photo) { ?>
-                    <li class="collection-item">
-                        <strong>
-                            <p>Изображение страницы</p>
-                        </strong>
-                        <img height="300px" src=<?= $model->photo ?>>
-                    </li>
-                <?php } else { ?>
-                    <li class="collection-item" title="Добавить">
-                        <?= Html::a('Добавить изображение страницы', ['update', 'id' => $model->id]) ?>
-                    </li>
-                <?php } ?>
+                <li class="collection-item">
+                    <strong>
+                        <p>изображение</p>
+                    </strong>
+                    <span title="Редактировать">
+                        <?php
+                        $photo = $model->photo
+                            ? Html::img($model->photo, ['alt' => 'page image', 'height' => '300px'])
+                            : 'Добавить изображение страницы';
+                        echo Html::a($photo, ['update', 'id' => $model->id]);
+                        ?>
+                    </span>
+                </li>
             </ul>
         </div>
     </div>

@@ -1,12 +1,13 @@
 <?php
 
+use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
+use uraankhayayaal\redactor\RedactorWidget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 
 ?>
 
-<div class="page-faq-form">
+<div class="page-raw-text-form">
 
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
@@ -14,7 +15,24 @@ use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 
     <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
 
+    <?= /* скрытый инпут */ $form->field($model, 'block_id')->hiddenInput(['value' => $block_id])->label(false) ?>
+
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'content')->widget(RedactorWidget::class, [
+        'settings' => [
+            'lang' => 'ru',
+            'minHeight' => 200,
+            'plugins' => [
+                'fullscreen',
+                'fontcolor',
+                'fontfamily',
+                'limiter',
+                'textdirection',
+                'textexpander',
+            ]
+        ],
+        'class' => 'materialize-textarea',
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn']) ?>
@@ -29,16 +47,5 @@ use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
     </div>
 
     <?php ActiveForm::end(); ?>
-
-    <?php if (!$model->isNewRecord) {
-        $faqs = $model->getPageBlockFaq();
-    ?>
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <p></p>
-                <?= Html::a('Добавить новые вкладки', ['/page/back-block-faq/index', 'block_id' => $model->id], ['class' => 'btn']); ?>
-            </div>
-        </div>
-    <?php } ?>
 
 </div>

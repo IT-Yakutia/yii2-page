@@ -14,20 +14,12 @@ use yii\helpers\Url;
 <div class="page-block">
     <div class="row">
         <div class="col s12">
-                <?= Html::a('Новый блок текста', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::RAW_TEXT_TYPE, ], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-                <?= Html::a('Новый блок графиков', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::CHART_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-                <?= Html::a('Новый блок галереи', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::GALLERY_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-                <p></p>
-                <?= Html::a('Новый блок FAQ', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::FAQ_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-                <?= Html::a('Новый блок изображения', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::IMAGE_TEXT_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-            <div class="fixed-action-btn">
-                <?= Html::a('<i class="material-icons">add</i>', ['create'], [
-                    'class' => 'btn-floating btn-large waves-effect waves-light tooltipped',
-                    'title' => 'Сохранить',
-                    'data-position' => "left",
-                    'data-tooltip' => "Добавить",
-                ]) ?>
-            </div>
+            <?= Html::a('Новый блок текста', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::RAW_TEXT_TYPE,], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+            <?= ''/*Html::a('Новый блок графиков', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::CHART_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) */ ?>
+            <?= Html::a('Новый блок галереи', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::GALLERY_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+            <p></p>
+            <?= Html::a('Новый блок FAQ', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::FAQ_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок изображения', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::IMAGE_TEXT_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
 
             <?= GridView::widget([
                 'tableOptions' => [
@@ -47,19 +39,34 @@ use yii\helpers\Url;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => SerialColumn::class],
-                    ['class' => MaterialActionColumn::class, 'template' => '{update}'],
+                    [
+                        'class' => MaterialActionColumn::class, 'template' => '{updateBlock}',
+                        'buttons' => [
+                            'updateBlock' => function ($url, $model, $key) {
+                                $options = array_merge([
+                                    'title' => Yii::t('app', 'Обновить блок'),
+                                    'aria-label' => Yii::t('app', 'Обновить блок'),
+                                    'data-pjax' => '0',
+                                ]);
+                                $icon = Html::tag('i', 'create', ['class' => "material-icons"]);
+                                $url = ['back-block/update', 'id' => $model->id];
+
+                                return Html::a($icon, $url, $options);
+                            }
+                        ]
+                    ],
                     [
                         'attribute' => 'title',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a($model->title, ['view', 'id' => $model->id]);
+                            return Html::a($model->title, ['back-block/update', 'id' => $model->id]);
                         }
                     ],
                     [
                         'attribute' => 'type',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a(PageBlock::TYPE_NAMES[$model->type], ['view', 'id' => $model->id]);
+                            return '<p>' . PageBlock::TYPE_NAMES[$model->type] . '</p>';
                         }
                     ],
                     [
@@ -76,7 +83,27 @@ use yii\helpers\Url;
                         'attribute' => 'created_at',
                         'format' => 'datetime',
                     ],
-                    ['class' => MaterialActionColumn::class, 'template' => '{delete}'],
+                    [
+                        'class' => MaterialActionColumn::class,
+                        'template' => '{deleteBlock}',
+                        'buttons' => [
+                            'deleteBlock' => function ($url, $model, $key) {
+                                $options = array_merge([
+                                    'title' => Yii::t('app', 'Удалить блок'),
+                                    'aria-label' => Yii::t('app', 'Удалить блок'),
+                                    'data-pjax' => '0',
+                                    'data' => [
+                                        'method' => 'post',
+                                        'params' => ['id' => $model->id],
+                                    ]
+                                ]);
+                                $icon = Html::tag('i', 'delete', ['class' => "material-icons"]);
+                                $url = ['back-block/delete'];
+
+                                return Html::a($icon, $url, $options);
+                            }
+                        ]
+                    ],
                     [
                         'class' => Column::class,
                     ],
