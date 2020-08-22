@@ -48,11 +48,11 @@ class PageBlock extends ActiveRecord
     ];
 
     const BLOCK_WIDGET = [
-        self::RAW_TEXT_TYPE => 'frontend\themes\basic\widgets\page_text\TextBlockWidget',
-        self::CHART_TYPE => 'frontend\themes\basic\widgets\page_chart\ChartBlockWidget',
-        self::GALLERY_TYPE => 'frontend\themes\basic\widgets\page_gallery\GalleryBlockWidget',
-        self::FAQ_TYPE => 'frontend\themes\basic\widgets\page_faq\FaqBlockWidget',
-        self::IMAGE_TEXT_TYPE => 'frontend\themes\basic\widgets\page_img_block\ImgBlockWidget',
+        self::RAW_TEXT_TYPE => 'uraankhayayaal\page\widgets\page_text\TextBlockWidget',
+        self::CHART_TYPE => 'uraankhayayaal\page\widgets\page_chart\ChartBlockWidget',
+        self::GALLERY_TYPE => 'uraankhayayaal\page\widgets\page_gallery\GalleryBlockWidget',
+        self::FAQ_TYPE => 'uraankhayayaal\page\widgets\page_faq\FaqBlockWidget',
+        self::IMAGE_TEXT_TYPE => 'uraankhayayaal\page\widgets\page_img_block\ImgBlockWidget',
     ];
 
     public static function tableName()
