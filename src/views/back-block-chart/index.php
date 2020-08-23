@@ -55,6 +55,22 @@ $this->title = 'Добавление новых данных в график: ' 
                         }
                     ],
                     [
+                        'attribute' => 'value',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            return Html::a($model->value, ['update', 'id' => $model->id]);
+                        }
+                    ],
+                    [
+                        'attribute' => 'color',
+                        'format' => 'raw',
+                        'value' => function ($model) {
+                            
+                            $color = '<p style="background:'.$model->color.';color:'.$model->color.'">color</p>';
+                            return Html::a($color, ['update', 'id' => $model->id]);
+                        }
+                    ],
+                    [
                         'attribute' => 'is_publish',
                         'format' => 'raw',
                         'value' => function ($model) {
