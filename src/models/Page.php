@@ -103,7 +103,7 @@ class Page extends \yii\db\ActiveRecord
 
     public static function findOneForFront($slug)
     {
-        if(Yii::$app->user->can("page"))
+        if (Yii::$app->user->can("page"))
             return self::find()->where(['slug' => $slug])->one();
         else
             return self::find()->where(['slug' => $slug, 'is_publish' => true])->one();
@@ -121,7 +121,7 @@ class Page extends \yii\db\ActiveRecord
 
     public function getBlocks()
     {
-        $page = $this->getPageBlocks()->all();
+        $page = $this->getPageBlocks()->orderBy(['sort' => SORT_ASC])->all();
         if (empty($page)) {
             return [];
         }
@@ -149,7 +149,7 @@ class Page extends \yii\db\ActiveRecord
                 $blocks[] = $this->renderGalleryBlock($block);
             }
 
-            if($block->type === PageBlock::CHART_TYPE) {
+            if ($block->type === PageBlock::CHART_TYPE) {
                 $blocks[] = $this->renderChartBlock($block);
             }
         }
@@ -237,7 +237,7 @@ class Page extends \yii\db\ActiveRecord
     {
         $data['title'] = $block->title;
         $data['data'] = $block->getCharts();
-        
+
         return self::render($block->type, $data);
     }
 
