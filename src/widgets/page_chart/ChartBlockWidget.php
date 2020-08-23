@@ -1,10 +1,19 @@
 <?php
 
-namespace frontend\themes\basic\widgets\page_chart;
+namespace uraankhayayaal\page\widgets\page_chart;
 
 use yii\base\Widget;
 
 class ChartBlockWidget extends Widget {
+    public $data;
+
+    public function run() {
+
+        return $this->render('index', [
+            'title' => $this->data['title'],
+            'data' => $this->data['data'],
+        ]);
+    }
 
     public $type = 'bar'; // line, pie, bar
     // public $data = [
@@ -17,11 +26,14 @@ class ChartBlockWidget extends Widget {
      */
     public $dataset = [
         'labels' => [
-            'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' // labels count must be equals dataset[data] items count
+            // имена колонок
+            'Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange' // labels count must be equals dataset[data] items count 
         ],
         'datasets' => [
             [
+                // title chart
                 'label' => '# of Votes',
+                // цветов должно быть столько же, сколько колонок
                 'backgroundColor' => [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -30,6 +42,7 @@ class ChartBlockWidget extends Widget {
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(255, 159, 64, 0.2)'
                 ],
+                // цвета границы
                 'borderColor' =>  [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -39,6 +52,7 @@ class ChartBlockWidget extends Widget {
                     'rgba(255, 159, 64, 1)'
                 ],
                 'borderWidth' => 1,
+                // данные колонок
                 'data' => [
                     19, 19, 3, 5, 2, 3
                 ]
@@ -121,18 +135,8 @@ class ChartBlockWidget extends Widget {
         ]
     ]; */
 
-    public function run() {
-        $chart_title = 'This is a chart of this page';
-
-        return $this->render($this->type, [
-            'chart_title' => $chart_title,
-            'data' => $this->dataset,
-        ]);
-        
-    }
-
-    public function init() {
-        ChartAsset::register( $this->getView() );
-        parent::init();
-    }
+    // public function init() {
+    //     ChartAsset::register( $this->getView() );
+    //     parent::init();
+    // }
 }

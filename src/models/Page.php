@@ -148,6 +148,10 @@ class Page extends \yii\db\ActiveRecord
             if ($block->type === PageBlock::GALLERY_TYPE) {
                 $blocks[] = $this->renderGalleryBlock($block);
             }
+
+            if($block->type === PageBlock::CHART_TYPE) {
+                $blocks[] = $this->renderChartBlock($block);
+            }
         }
 
         return $blocks;
@@ -226,6 +230,14 @@ class Page extends \yii\db\ActiveRecord
             }
         }
 
+        return self::render($block->type, $data);
+    }
+
+    private function renderChartBlock($block)
+    {
+        $data['title'] = $block->title;
+        $data['data'] = $block->getCharts();
+        
         return self::render($block->type, $data);
     }
 

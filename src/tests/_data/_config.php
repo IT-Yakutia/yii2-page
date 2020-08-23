@@ -7,5 +7,6 @@ return [
     'pageMenuItemCount' => 10,
     'pageBlockCount' => 3,
     'pageBlockFaqCount' => 3,
-    'pageBlockGalleryCount' => 3
+    'pageBlockGalleryCount' => 3,
+    'pageBlockChartCount' => rand(10, 20)
 ];

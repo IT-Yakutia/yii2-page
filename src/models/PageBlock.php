@@ -76,7 +76,7 @@ class PageBlock extends ActiveRecord
         return [
             [['type'], 'required'],
             [['content'], 'string'],
-            [['sort', 'page_id', 'is_publish', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['sort', 'page_id', 'chart_type', 'is_publish', 'status', 'created_at', 'updated_at'], 'integer'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];
     }
@@ -90,6 +90,7 @@ class PageBlock extends ActiveRecord
             'photo' => 'Photo',
             'sort' => 'Sort',
             'page_id' => 'Page ID',
+            'chart_type' => 'Chart Type',
             'is_publish' => 'Is Publish',
             'status' => 'Status',
             'created_at' => 'Created At',
@@ -97,7 +98,7 @@ class PageBlock extends ActiveRecord
         ];
     }
 
-        /**
+    /**
      * @return ActiveQuery
      */
     public function getGalleryPageBlocks()
@@ -108,5 +109,119 @@ class PageBlock extends ActiveRecord
     public function getPageBlockFaq()
     {
         return $this->hasMany(PageBlockFaq::class, ['block_id' => 'id']);
+    }
+
+    public function getCharts($publish = false)
+    {
+        $charts = $this->hasMany(PageBlockChart::class, ['block_id' => 'id'])->where(['is_publish' => 1])->all();
+        
+        switch ($this->chart_type) {
+            case (PageBlockChart::PIE):
+                return $this->getPieChartsData($charts);
+            case (PageBlockChart::BAR):
+                return $this->getBarChartsData($charts);
+                // case(PageBlockChart::LINE): return $this->getLineCharsData($charts);
+            default:
+                return ['type' => 'bar'];
+        }
+    }
+
+    private function getPieChartsData($charts)
+    {
+        $data = [
+            'type' => 'pie',
+            'id' => 'structurePie',
+            'options' => [
+                'height' => 200,
+                'width' => 400,
+            ],
+            'data' => [
+                'radius' =>  "90%",
+                'labels' => [],
+                'datasets' => []
+            ],
+        ];
+
+        $labels = [];
+        $datasets = [];
+        if (!empty($charts)) {
+            foreach ($charts as $chart) {
+                $labels[] = $chart->title;
+                $datasets[0]['data'][] = $chart->value;
+                $datasets[0]['backgroundColor'][] = $chart->color;
+                $datasets[0]['borderColor'][] = $chart->color;
+            }
+        }
+
+        $data['data']['labels'] = $labels;
+        $data['data']['datasets'] = $datasets;
+
+        return $data;
+    }
+
+    private function getBarChartsData($charts)
+    {
+        $data = [
+            'type' => 'bar',
+            'options' => [],
+            'data' => [
+                'labels' => [''],
+                'datasets' => []
+            ],
+        ];
+
+        $datasets = [];
+        if (!empty($charts)) {
+            foreach ($charts as $chart) {
+                $set = [];
+                $set['data'][] = $chart->value;
+                $set['backgroundColor'][] = $chart->color;
+                $set['borderColor'][] = "$chart->color";
+                $set['label'] = $chart->title;
+                $datasets[] = $set;
+            }
+        }
+        $data['data']['datasets'] = $datasets;
+
+        return $data;
+    }
+
+    private function getLineCharsData($charts)
+    {
+        $data = [
+            'type' => 'line',
+            'options' => [
+                'height' => 200,
+                'width' => 400
+            ]
+        ];
+
+        $datasets = [];
+        if (!empty($charts)) {
+            foreach ($charts as $chart) {
+                $set = [];
+                $set['label'] = $chart->title;
+                $set['pointBorderColor'] = '#fff';
+                $set['pointBackgroundColor'] = $chart->color;
+                $params = $chart->getParams()->where(['is_publish' => 1])->all();
+                if (!empty($params)) {
+                    foreach ($params as $param) {
+                        $set['data'][] = $param->value;
+                    }
+                }
+                $datasets[] = $set;
+            }
+        }
+
+        $data['data']['datasets'] = $datasets;
+
+        return $data;
+    }
+
+    private function colorToRgba($color)
+    {
+        $hex = strtolower($color);
+        list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
+        return "rgba($r, $g, $b, 0.9)";
     }
 }
