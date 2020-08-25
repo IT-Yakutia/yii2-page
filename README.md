@@ -77,3 +77,17 @@ Custom view file:
     ],
 ],
 ```
+
+RUN Fixtures:
+```
+php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures'
+php yii fixture PageBlockChart --namespace='uraankhayayaal\page\tests\fixtures'
+php yii fixture PageBlock --namespace='uraankhayayaal\page\tests\fixtures'
+```
+
+Docker version:
+```
+php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+php yii fixture PageBlockChart --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+php yii fixture PageBlock --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+```
