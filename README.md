@@ -9,7 +9,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 
 Either run
 
-```
+```sh
 php composer.phar require --prefer-dist uraankhayayaal/yii2-page "*"
 ```
 
@@ -43,7 +43,7 @@ Once the extension is installed, simply add in your console config:
 ```
 
 And just run the command:
-```
+```sh
 php yii migrate
 ```
 
@@ -70,10 +70,18 @@ page
 
 Custom view file:
 
-```
+```php
 'custom_view_for_modules' => [
     'page_front' => [
         'view' => '@frontend/views/front_page/view',
     ],
 ],
+```
+
+Add fixtures:
+
+```sh
+php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+php yii fixture PageBlockChart --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+php yii fixture PageBlock --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
 ```

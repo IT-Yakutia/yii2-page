@@ -10,7 +10,7 @@ use uraankhayayaal\page\models\PageBlock;
 
 ?>
 
-<div class="page-block-gallery-form">
+<div class="page-gallery-form">
 
     <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#page_block_gallery_tab_main">Основное</a></li>

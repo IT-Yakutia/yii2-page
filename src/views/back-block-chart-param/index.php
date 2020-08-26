@@ -14,7 +14,7 @@ use yii\helpers\Url;
 $this->title = 'Добавление новых графиков в блоке: ' . $model->title;
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-index">
+<div class="page-block-chart-param-index">
     <div class="row">
         <div class="col s12">
             <p>

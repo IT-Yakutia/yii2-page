@@ -10,7 +10,7 @@ use yii\grid\GridView;
 $this->title = 'Вкладки FAQ';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-index">
+<div class="page-block-faq-index">
     <div class="row">
         <div class="col s12">
             <p>
