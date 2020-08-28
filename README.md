@@ -80,6 +80,18 @@ Custom view file:
 Add fixtures:
 
 ```sh
+php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures'
+```
+```sh
+php yii fixture PageBlockChart --namespace='uraankhayayaal\page\tests\fixtures'
+```
+```sh
+php yii fixture PageBlock --namespace='uraankhayayaal\page\tests\fixtures'
+```
+
+Add fixtures in docker:
+
+```sh
 php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
 ```
 ```sh
