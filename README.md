@@ -15,7 +15,7 @@ php composer.phar require --prefer-dist uraankhayayaal/yii2-page "*"
 
 or add
 
-```
+```json
 "uraankhayayaal/yii2-page": "*"
 ```
 
@@ -29,15 +29,14 @@ Once the extension is installed, simply add in your console config:
 
 ```php
 'controllerMap' => [
-    /* ... */
+    ...
     'migrate' => [
-            // 'class' => 'yii\console\controllers\MigrateController',
-            'migrationPath' => [
-                // '@console/migrations', // yii migrate/create app_init
-                // '@yii/rbac/migrations',
-                /* ... */
-                '@uraankhayayaal/page/migrations', // yii migrate/create add_some_table --migrationPath=@uraankhayayaal/page/migrations
-            ],
+        ...
+        'migrationPath' => [
+            ...
+            '@uraankhayayaal/page/src/migrations',
+            ...
+        ],
     ],
 ],
 ```
@@ -82,6 +81,10 @@ Add fixtures:
 
 ```sh
 php yii fixture PageMenuItem --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+```
+```sh
 php yii fixture PageBlockChart --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
+```
+```sh
 php yii fixture PageBlock --namespace='uraankhayayaal\page\tests\fixtures' --interactive=0
 ```
