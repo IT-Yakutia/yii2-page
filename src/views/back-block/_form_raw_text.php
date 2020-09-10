@@ -5,6 +5,7 @@ use yii\widgets\ActiveForm;
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 use uraankhayayaal\page\models\PageBlock;
 use uraankhayayaal\redactor\RedactorWidget;
+use yii\helpers\Url;
 
 ?>
 
@@ -22,14 +23,14 @@ use uraankhayayaal\redactor\RedactorWidget;
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
-            // 'imageUpload' => Url::to(['/page/back/image-upload']),
-            // 'fileUpload' => Url::to(['/page/back/file-upload']),
-            // 'imageManagerJson' => Url::to(['/page/back/images-get']),
-            // 'fileManagerJson' => Url::to(['/page/back/files-get']),
+            'imageUpload' => Url::to(['/page/back-block/image-upload']),
+            'fileUpload' => Url::to(['/page/back-block/file-upload']),
+            'imageManagerJson' => Url::to(['/page/back-block/images-get']),
+            'fileManagerJson' => Url::to(['/page/back-block/files-get']),
             'plugins' => [
                 'fullscreen',
-                // 'imagemanager',
-                // 'filemanager',
+                'imagemanager',
+                'filemanager',
                 'fontcolor',
                 'fontfamily',
                 'fontsize',
@@ -37,6 +38,7 @@ use uraankhayayaal\redactor\RedactorWidget;
                 'table',
                 'textdirection',
                 'textexpander',
+                'video',
             ]
         ],
         'class' => 'materialize-textarea',
