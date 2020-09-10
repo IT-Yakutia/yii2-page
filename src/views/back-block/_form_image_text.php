@@ -32,14 +32,14 @@ use yii\helpers\Url;
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
-            // 'imageUpload' => Url::to(['/page/back/image-upload']),
-            // 'fileUpload' => Url::to(['/page/back/file-upload']),
-            // 'imageManagerJson' => Url::to(['/page/back/images-get']),
-            // 'fileManagerJson' => Url::to(['/page/back/files-get']),
+            'imageUpload' => Url::to(['/page/back-block/image-upload']),
+            'fileUpload' => Url::to(['/page/back-block/file-upload']),
+            'imageManagerJson' => Url::to(['/page/back-block/images-get']),
+            'fileManagerJson' => Url::to(['/page/back-block/files-get']),
             'plugins' => [
                 'fullscreen',
-                // 'imagemanager',
-                // 'filemanager',
+                'imagemanager',
+                'filemanager',
                 'fontcolor',
                 'fontfamily',
                 'fontsize',
@@ -47,6 +47,7 @@ use yii\helpers\Url;
                 'table',
                 'textdirection',
                 'textexpander',
+                'video',
             ]
         ],
         'class' => 'materialize-textarea',

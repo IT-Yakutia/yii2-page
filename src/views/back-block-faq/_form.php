@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 
 ?>
 
-<div class="page-raw-text-form">
+<div class="page-block-faq-form">
 
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',

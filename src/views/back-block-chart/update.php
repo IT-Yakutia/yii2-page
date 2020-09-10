@@ -10,7 +10,7 @@ $this->title = 'Редактирование: ' . $model->title;
 // $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 // $this->params['breadcrumbs'][] = 'Update';
 ?>
-<div class="page-update">
+<div class="page-block-chart-update">
     <div class="row">
         <div class="col s12">
 		    <?= $this->render('_form', [

@@ -10,7 +10,7 @@ $this->title = 'Новый график';
 // $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-create">
+<div class="page-block-chart-param-create">
     <div class="row">
         <div class="col s12">
 		    <?= $this->render('_form', [

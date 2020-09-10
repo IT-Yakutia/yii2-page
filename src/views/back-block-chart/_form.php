@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="page-form">
+<div class="page-block-chart-form">
 
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
