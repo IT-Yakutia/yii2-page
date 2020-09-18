@@ -3,6 +3,7 @@
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 use uraankhayayaal\redactor\RedactorWidget;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 ?>
@@ -15,20 +16,27 @@ use yii\widgets\ActiveForm;
 
     <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
 
-    <?= /* скрытый инпут */ $form->field($model, 'block_id')->hiddenInput(['value' => $block_id])->label(false) ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'content')->widget(RedactorWidget::class, [
         'settings' => [
             'lang' => 'ru',
             'minHeight' => 200,
+            'imageUpload' => Url::to(['/page/back-block-faq/image-upload']),
+            'fileUpload' => Url::to(['/page/back-block-faq/file-upload']),
+            'imageManagerJson' => Url::to(['/page/back-block-faq/images-get']),
+            'fileManagerJson' => Url::to(['/page/back-block-faq/files-get']),
             'plugins' => [
                 'fullscreen',
+                'imagemanager',
+                'filemanager',
                 'fontcolor',
                 'fontfamily',
+                'fontsize',
                 'limiter',
+                'table',
                 'textdirection',
                 'textexpander',
+                'video',
             ]
         ],
         'class' => 'materialize-textarea',

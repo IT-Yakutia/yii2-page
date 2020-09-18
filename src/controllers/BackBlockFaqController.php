@@ -2,6 +2,7 @@
 
 namespace uraankhayayaal\page\controllers;
 
+use uraankhayayaal\materializecomponents\imgcropper\actions\UploadAction;
 use uraankhayayaal\sortable\actions\Sorting;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
@@ -9,6 +10,9 @@ use yii\web\Controller;
 use uraankhayayaal\page\models\PageBlock;
 use uraankhayayaal\page\models\PageBlockFaq;
 use uraankhayayaal\page\models\PageBlockFaqSearch;
+use vova07\imperavi\actions\GetFilesAction;
+use vova07\imperavi\actions\GetImagesAction;
+use vova07\imperavi\actions\UploadFileAction;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -38,6 +42,37 @@ class BackBlockFaqController extends Controller
     public function actions()
     {
         return [
+            'image-upload' => [
+                'class' => UploadFileAction::class,
+                'url' => '/images/imperavi/page-block-faq/',
+                'path' => '@frontend/web/images/imperavi/page-block-faq/',
+                'translit' => true,
+            ],
+            'file-upload' => [
+                'class' => UploadFileAction::class,
+                'url' => '/images/imperavi/page-block-faq/',
+                'path' => '@frontend/web/images/imperavi/page-block-faq/',
+                'uploadOnlyImage' => false,
+                'translit' => true,
+            ],
+            'images-get' => [
+                'class' => GetImagesAction::class,
+                'url' => '/images/imperavi/page-block-faq/',
+                'path' => '@frontend/web/images/imperavi/page-block-faq/',
+                'options' => ['only' => ['*.jpg', '*.jpeg', '*.png', '*.gif', '*.ico']],
+            ],
+            'files-get' => [
+                'class' => GetFilesAction::class,
+                'url' => '/images/imperavi/page-block-faq/',
+                'path' => '@frontend/web/images/imperavi/page-block-faq/',
+                'options' => ['only' => ['*.txt', '*.md', '*.zip', '*.rar', '*.docx', '*.doc', '*.pdf', '*.xls']],
+            ],
+            'uploadImg' => [
+                'class' => UploadAction::class,
+                'url' => '/images/uploads/page-block-faq/',
+                'path' => '@frontend/web/images/uploads/page-block-faq/',
+                'maxSize' => 10485760,
+            ],
             'sorting' => [
                 'class' => Sorting::class,
                 'query' => PageBlock::find(),
@@ -60,6 +95,8 @@ class BackBlockFaqController extends Controller
     public function actionCreate($block_id)
     {
         $model = new PageBlockFaq();
+        $model->block_id = $block_id;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно создана!');
             return $this->redirect([

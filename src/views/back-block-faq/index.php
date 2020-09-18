@@ -52,13 +52,6 @@ $this->title = 'Вкладки FAQ';
                         }
                     ],
                     [
-                        'attribute' => 'content',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            return '<p>'. $model->content.'</p>';
-                        }
-                    ],
-                    [
                         'attribute' => 'is_publish',
                         'format' => 'raw',
                         'value' => function ($model) {
