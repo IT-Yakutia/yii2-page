@@ -1,6 +1,7 @@
 <?php
 
 use uraankhayayaal\materializecomponents\grid\MaterialActionColumn;
+use uraankhayayaal\page\models\PageBlockChart;
 use uraankhayayaal\sortable\grid\Column;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -58,14 +59,18 @@ $this->title = 'Добавление новых данных в график: ' 
                         'attribute' => 'value',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a($model->value, ['update', 'id' => $model->id]);
+                            if ($model->block->chart_type !== PageBlockChart::LINE) {
+                                return Html::a($model->value, ['update', 'id' => $model->id]);
+                            } else {
+                                return '';
+                            }
+                            
                         }
                     ],
                     [
                         'attribute' => 'color',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            
                             $color = '<p style="background:'.$model->color.';color:'.$model->color.'">color</p>';
                             return Html::a($color, ['update', 'id' => $model->id]);
                         }

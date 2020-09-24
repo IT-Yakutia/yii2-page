@@ -111,6 +111,11 @@ class PageBlock extends ActiveRecord
         return $this->hasMany(PageBlockFaq::class, ['block_id' => 'id']);
     }
 
+    public function getPageBlockChartLabels()
+    {
+        return $this->hasMany(PageBlockChartLabel::class, ['block_id' => 'id']);
+    }
+
     public function getCharts($publish = false)
     {
         $charts = $this->hasMany(PageBlockChart::class, ['block_id' => 'id'])->where(['is_publish' => 1])->all();
@@ -120,7 +125,8 @@ class PageBlock extends ActiveRecord
                 return $this->getPieChartsData($charts);
             case (PageBlockChart::BAR):
                 return $this->getBarChartsData($charts);
-                // case(PageBlockChart::LINE): return $this->getLineCharsData($charts);
+            case(PageBlockChart::LINE): 
+                return $this->getLineCharsData($charts);
             default:
                 return ['type' => 'bar'];
         }
@@ -196,23 +202,35 @@ class PageBlock extends ActiveRecord
             ]
         ];
 
+        $labels = [];
+        $chart_lables = $this->pageBlockChartLabels;
+        foreach($chart_lables as $label) {
+            if($label->is_publish === 1) {
+                $labels[] = $label->title;
+            }
+        }
+
         $datasets = [];
         if (!empty($charts)) {
             foreach ($charts as $chart) {
                 $set = [];
                 $set['label'] = $chart->title;
-                $set['pointBorderColor'] = '#fff';
-                $set['pointBackgroundColor'] = $chart->color;
-                $params = $chart->getParams()->where(['is_publish' => 1])->all();
-                if (!empty($params)) {
-                    foreach ($params as $param) {
-                        $set['data'][] = $param->value;
+                $set['borderColor'][] = $chart->color;
+
+                $params = [];
+                $chart_params = $chart->params;
+                foreach($chart_params as $param) {
+                    foreach($labels as $label) {
+                        if($label === $param->title) {
+                            $params[] = $param->value;
+                        }
                     }
                 }
+                $set['data'] = $params;
                 $datasets[] = $set;
             }
         }
-
+        $data['data']['labels'] = $labels;
         $data['data']['datasets'] = $datasets;
 
         return $data;

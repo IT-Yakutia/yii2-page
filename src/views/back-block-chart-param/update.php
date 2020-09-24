@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $model common\modules\page\models\Page */
+/* @var $model common\modules\page\models\PageBlockChartParam */
 
-$this->title = 'Редактирование: ' . $model->title;
+$this->title = 'Редактирование параметра "' . $model->title . '" графика "'. $model->chart->title . '"';
 // $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
 // $this->params['breadcrumbs'][] = ['label' => $model->title, 'url' => ['view', 'id' => $model->id]];
 // $this->params['breadcrumbs'][] = 'Update';
@@ -14,7 +14,8 @@ $this->title = 'Редактирование: ' . $model->title;
     <div class="row">
         <div class="col s12">
 		    <?= $this->render('_form', [
-		        'model' => $model,
+				'model' => $model,
+				'chart_labels' => $chart_labels,
 		    ]) ?>
 		</div>
 	</div>

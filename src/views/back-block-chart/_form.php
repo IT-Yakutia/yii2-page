@@ -23,7 +23,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'value')->textInput(['type' => 'number']) ?>
+    <?php 
+        if($model->block->chart_type !== PageBlockChart::LINE) {
+            echo $form->field($model, 'value')->textInput(['type' => 'number']);
+        } else {
+            echo $form->field($model, 'value')->hiddenInput(['value' => '10'])->label(false);
+        }
+    ?>
 
     <?= $form->field($model, 'color')->widget(ColorInput::class, [
         'name' => 'color_32',
@@ -52,15 +58,15 @@ use yii\widgets\ActiveForm;
     <p></p>
     <?php ActiveForm::end(); ?>
     <?php
-    // if (!$model->isNewRecord && $model->getBlock()->one()->chart_type === PageBlockChart::LINE) {
-    //     echo Html::a(
-    //         'Добавить параметры',
-    //         [
-    //             '/page/back-block-chart-param/index',
-    //             'chart_id' => $model->id
-    //         ],
-    //         ['class' => 'btn']
-    //     );
-    // }
+    if (!$model->isNewRecord && $model->block->chart_type === PageBlockChart::LINE) {
+        echo Html::a(
+            'Добавить параметры',
+            [
+                '/page/back-block-chart-param/index',
+                'chart_id' => $model->id
+            ],
+            ['class' => 'btn']
+        );
+    }
     ?>
 </div>

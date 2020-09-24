@@ -10,18 +10,18 @@ class PageBlockChart extends ActiveRecord
 {
     const BAR = 0;
     const PIE = 1;
-    // const LINE = 2;
+    const LINE = 2;
 
     const TYPES = [
         'bar' => self::BAR,
         'pie' => self::PIE,
-        // 'line' => self::LINE,
+        'line' => self::LINE,
     ];
 
     const TYPE_NAMES = [
         self::BAR => 'Колонки',
         self::PIE => 'Пирог',
-        // self::LINE => 'Линейный',
+        self::LINE => 'Линейный',
     ];
 
     public static function tableName()

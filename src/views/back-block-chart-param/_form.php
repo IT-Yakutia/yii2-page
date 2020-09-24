@@ -2,6 +2,7 @@
 
 use kartik\color\ColorInput;
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
+use uraankhayayaal\page\models\PageBlockChart;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,21 +19,34 @@ use yii\widgets\ActiveForm;
 
     <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+    <?php 
+        if ($model->chart->block->chart_type === PageBlockChart::LINE) {
+            if(empty($chart_labels)) {
+                echo '<p>Добавьте новые заголовки графиков!</p>';
+            }
+            echo $form->field($model, 'title')->dropDownList($chart_labels);
+        } else {
+            echo $form->field($model, 'title')->textInput(['maxlength' => true]);
+        }
+    ?>
 
     <?= $form->field($model, 'value')->textInput(['type' => 'number']) ?>
 
-    <?= $form->field($model, 'color')->widget(ColorInput::class, [
-        'name' => 'color_32',
-        'value' => 'rgb(100, 50, 200)',
-        'options' => ['placeholder' => 'Choose your color ...', 'readonly' => true],
-        'pluginOptions' => [
-            'showInput' => false,
-            'preferredFormat' => 'rgb'
-        ],
-        'useNative' => true,
-        'width' => '75%',
-    ]); ?>
+    <?php 
+        if ($model->chart->block->chart_type !== PageBlockChart::LINE) {
+            echo $form->field($model, 'color')->widget(ColorInput::class, [
+                'name' => 'color_32',
+                'value' => 'rgb(100, 50, 200)',
+                'options' => ['placeholder' => 'Choose your color ...', 'readonly' => true],
+                'pluginOptions' => [
+                    'showInput' => false,
+                    'preferredFormat' => 'rgb'
+                ],
+                'useNative' => true,
+                'width' => '75%',
+            ]);
+        }
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn']) ?>

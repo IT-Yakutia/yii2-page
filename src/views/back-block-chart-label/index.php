@@ -8,17 +8,17 @@ use yii\grid\SerialColumn;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\modules\page\models\PageBlockSearch */
+/* @var $searchModel common\modules\page\models\PageBlockChartLabelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Добавление новых параметров в график ' . $model->block->title;
+$this->title = 'Добавление новых заголовков в график ' . $model->title;
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="page-block-chart-param-index">
+<div class="page-block-chart-label-index">
     <div class="row">
         <div class="col s12">
             <p>
-                <?= Html::a('Добавить', ['create', 'chart_id' => $model->id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Добавить', ['create', 'block_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>
             <div class="fixed-action-btn">
                 <?= Html::a('<i class="material-icons">add</i>', ['create'], [
@@ -53,26 +53,6 @@ $this->title = 'Добавление новых параметров в граф
                         'format' => 'raw',
                         'value' => function ($model) {
                             return Html::a($model->title, ['update', 'id' => $model->id]);
-                        }
-                    ],
-                    [
-                        'attribute' => 'value',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            return Html::a($model->value, ['update', 'id' => $model->id]);
-                        }
-                    ],
-                    [
-                        'attribute' => 'color',
-                        'format' => 'raw',
-                        'value' => function ($model) {
-                            
-                            if(empty($model->color)) {
-                                return 'not setted';
-                            }
-
-                            $color = '<p style="background:'.$model->color.';color:'.$model->color.'">color</p>';
-                            return Html::a($color, ['update', 'id' => $model->id]);
                         }
                     ],
                     [
