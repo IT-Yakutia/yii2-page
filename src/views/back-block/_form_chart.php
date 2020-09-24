@@ -18,7 +18,7 @@ use uraankhayayaal\page\models\PageBlockChart;
     <?php
     if ($model->isNewRecord) {
         echo $form->field($model, 'is_publish')->hiddenInput(['value' => 0])->label(false);
-        echo '<p>График можно будет опубликовать после добавления</p>';
+        echo '<p>График можно будет опубликовать только после добавления</p>';
     } else {
         echo WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']);
     }
