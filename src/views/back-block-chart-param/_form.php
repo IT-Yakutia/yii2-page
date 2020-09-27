@@ -16,14 +16,16 @@ use yii\widgets\ActiveForm;
     <?= Html::a('Главная', ['/']) ?> /
     <?= Html::a('Страницы', ['back/index']) ?> /
     <?= Html::a($model->chart->block->page->title, ['back/update', 'id' => $model->chart->block->page->id]) ?> /
-    <?= Html::a($model->chart->block->title, ['back-block/update', 'id' => $model->chart->block->id]) ?> /
+    <?= Html::a($model->chart->block->title, ['back-block/update', 'id' => $model->chart->block->id]) ?> / 
     <?= Html::a('Графики', ['back-block-chart/index', 'block_id' => $model->chart->block->id]) ?> /
     <?= Html::a($model->chart->title, ['back-block-chart/update', 'id' => $model->chart->id]) ?> /
     <?= Html::a('Заголовки', ['back-block-chart-label/index', 'block_id' => $model->chart->block->id]) ?>
-
+    
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>
+
+    <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
 
     <?php
     if ($model->chart->block->chart_type === PageBlockChart::LINE) {
@@ -32,7 +34,6 @@ use yii\widgets\ActiveForm;
         }
         echo $form->field($model, 'title')->dropDownList($chart_labels);
     } else {
-        echo WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']);
         echo $form->field($model, 'title')->textInput(['maxlength' => true]);
     }
     ?>
