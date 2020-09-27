@@ -106,7 +106,7 @@ class BackBlockController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно создана!');
             return $this->redirect([
-                'back/view',
+                'back/update',
                 'id' => $page_id
             ]);
         }
@@ -122,7 +122,7 @@ class BackBlockController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно изменена!');
             return $this->redirect([
-                'back/view',
+                'back/update',
                 'id' => $model->page_id
             ]);
         }
@@ -140,7 +140,7 @@ class BackBlockController extends Controller
         if ($model->delete() !== false)
             Yii::$app->session->setFlash('success', 'Запись успешно удалена!');
         return $this->redirect([
-            'back/view',
+            'back/update',
             'id' => $page_id
         ]);
     }

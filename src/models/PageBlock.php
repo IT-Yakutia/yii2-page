@@ -98,6 +98,11 @@ class PageBlock extends ActiveRecord
         ];
     }
 
+    public function getPage()
+    {
+        return $this->hasOne(Page::class, ['id' => 'page_id']);
+    }
+
     /**
      * @return ActiveQuery
      */

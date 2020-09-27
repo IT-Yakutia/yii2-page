@@ -10,9 +10,12 @@ use yii\grid\GridView;
 $this->title = 'Страницы';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="page-index">
     <div class="row">
         <div class="col s12">
+            <p></p>
+            <?= Html::a('На главную', ['/'], Yii::$app->params['nav_options']) ?>
             <p>
                 <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
             </p>
@@ -43,7 +46,7 @@ $this->title = 'Страницы';
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    // ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{update}'],
+                    ['class' => '\uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{update}'],
                     [
                         'header' => 'Фото',
                         'format' => 'raw',
@@ -55,7 +58,7 @@ $this->title = 'Страницы';
                         'attribute' => 'title',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a($model->title, ['view', 'id' => $model->id]);
+                            return Html::a($model->title, ['update', 'id' => $model->id]);
                         }
                     ],
                     [

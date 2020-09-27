@@ -49,4 +49,9 @@ class PageBlockFaq extends ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
+
+    public function getBlock()
+    {
+        return $this->hasOne(PageBlock::class, ['id' => 'block_id']);
+    }
 }

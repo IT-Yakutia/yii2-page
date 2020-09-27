@@ -10,11 +10,15 @@ use yii\grid\GridView;
 $this->title = 'Вкладки FAQ';
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="page-block-faq-index">
     <div class="row">
         <div class="col s12">
+            <p></p>
+            <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к блоку: <b>' . $model->title . '</b>', ['back-block/update', 'id' => $model->id], Yii::$app->params['nav_options']) ?>
             <p>
-                <?= Html::a('Добавить новую вкладку', ['back-block-faq/create', 'block_id' => $block_id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Добавить новую вкладку', ['back-block-faq/create', 'block_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>
             <div class="fixed-action-btn">
                 <?= Html::a('<i class="material-icons">add</i>', ['create'], [
@@ -48,7 +52,7 @@ $this->title = 'Вкладки FAQ';
                         'attribute' => 'title',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return '<p>'. $model->title.'</p>';
+                            return Html::a($model->title, ['update', 'id' => $model->id]);
                         }
                     ],
                     [
@@ -78,7 +82,7 @@ $this->title = 'Вкладки FAQ';
                     'prevPageLabel' => '<i class="material-icons">chevron_left</i>',
                 ],
             ]);
-             ?>
+            ?>
         </div>
     </div>
 </div>

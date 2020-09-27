@@ -14,9 +14,16 @@ use yii\helpers\Url;
 $this->title = 'Добавление новых параметров в график ' . $model->block->title;
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="page-block-chart-param-index">
     <div class="row">
         <div class="col s12">
+            <p></p>
+            <?= Html::a('к странице: <b>' . $model->block->page->title . '</b>', ['back/update', 'id' => $model->block->page->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к блоку: <b>' . $model->block->title . '</b>', ['back-block/update', 'id' => $model->block->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к графикам', ['back-block-chart/index', 'block_id' => $model->block->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к графику: <b>'. $model->title . '</b>', ['back-block-chart/update', 'id' => $model->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к заголовкам', ['back-block-chart-label/index', 'block_id' => $model->block->id], Yii::$app->params['nav_options']) ?>
             <p>
                 <?= Html::a('Добавить', ['create', 'chart_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>
@@ -66,12 +73,12 @@ $this->title = 'Добавление новых параметров в граф
                         'attribute' => 'color',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            
-                            if(empty($model->color)) {
+
+                            if (empty($model->color)) {
                                 return 'not setted';
                             }
 
-                            $color = '<p style="background:'.$model->color.';color:'.$model->color.'">color</p>';
+                            $color = '<p style="background:' . $model->color . ';color:' . $model->color . '">color</p>';
                             return Html::a($color, ['update', 'id' => $model->id]);
                         }
                     ],

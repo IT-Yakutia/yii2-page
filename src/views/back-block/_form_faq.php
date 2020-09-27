@@ -7,7 +7,19 @@ use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 ?>
 
 <div class="page-faq-form">
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
+    <?php if (!$model->isNewRecord) {
+        $faqs = $model->getPageBlockFaq();
+    ?>
+        <p></p>
+        <div class="row">
+            <div class="col s12 m12 l12">
 
+                <?= Html::a('Добавить новые вкладки', ['back-block-faq/index', 'block_id' => $model->id], ['class' => 'btn']) ?>
+            </div>
+        </div>
+    <?php } ?>
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>
@@ -29,16 +41,5 @@ use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
     </div>
 
     <?php ActiveForm::end(); ?>
-
-    <?php if (!$model->isNewRecord) {
-        $faqs = $model->getPageBlockFaq();
-    ?>
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <p></p>
-                <?= Html::a('Добавить новые вкладки', ['/page/back-block-faq/index', 'block_id' => $model->id], ['class' => 'btn']); ?>
-            </div>
-        </div>
-    <?php } ?>
 
 </div>

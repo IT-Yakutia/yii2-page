@@ -91,18 +91,6 @@ class BackController extends Controller
         ]);
     }
 
-    public function actionView($id)
-    {
-        $searchModel = new PageBlockSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
-
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
     public function actionCreate()
     {
         $model = new Page();
@@ -121,13 +109,18 @@ class BackController extends Controller
     {
         $model = $this->findModel($id);
 
+        $searchModel = new PageBlockSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно изменена!');
-            return $this->redirect(['view', 'id' => $id]);
+            return $this->redirect(['update', 'id' => $id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 

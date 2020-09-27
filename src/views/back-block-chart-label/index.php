@@ -11,12 +11,17 @@ use yii\helpers\Url;
 /* @var $searchModel common\modules\page\models\PageBlockChartLabelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Добавление новых заголовков в график ' . $model->title;
+$this->title = 'Добавление новых заголовков в ' . $model->title;
 // $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="page-block-chart-label-index">
     <div class="row">
         <div class="col s12">
+            <p></p>
+            <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к блоку: <b>' . $model->title . '</b>', ['back-block/update', 'id' => $model->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к графикам', ['back-block-chart/index', 'block_id' => $model->id], Yii::$app->params['nav_options']) ?>
             <p>
                 <?= Html::a('Добавить', ['create', 'block_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>

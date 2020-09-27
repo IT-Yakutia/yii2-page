@@ -14,12 +14,12 @@ use yii\helpers\Url;
 <div class="page-block">
     <div class="row">
         <div class="col s12">
-            <?= Html::a('Новый блок текста', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::RAW_TEXT_TYPE,], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-            <?= Html::a('Новый блок графиков', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::CHART_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-            <?= Html::a('Новый блок галереи', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::GALLERY_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок текста', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::RAW_TEXT_TYPE,], ['class' => 'btn-small btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок графиков', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::CHART_TYPE], ['class' => 'btn-small btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок галереи', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::GALLERY_TYPE], ['class' => 'btn-small btn-success waves-effect waves-light']) ?>
             <p></p>
-            <?= Html::a('Новый блок FAQ', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::FAQ_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
-            <?= Html::a('Новый блок изображения', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::IMAGE_TEXT_TYPE], ['class' => 'btn btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок FAQ', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::FAQ_TYPE], ['class' => 'btn-small btn-success waves-effect waves-light']) ?>
+            <?= Html::a('Новый блок изображения', ['back-block/create', 'page_id' => $page_id, 'type' => PageBlock::IMAGE_TEXT_TYPE], ['class' => 'btn-small btn-success waves-effect waves-light']) ?>
 
             <?= GridView::widget([
                 'tableOptions' => [

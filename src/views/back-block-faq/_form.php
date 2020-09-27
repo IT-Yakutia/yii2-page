@@ -9,7 +9,9 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="page-block-faq-form">
-
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->block->page->title . '</b>', ['back/update', 'id' => $model->block->page->id], Yii::$app->params['nav_options']) ?> | 
+    <?= Html::a('к блоку: <b>' . $model->block->title . '</b>', ['back-block/update', 'id' => $model->block->id], Yii::$app->params['nav_options']) ?> 
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>

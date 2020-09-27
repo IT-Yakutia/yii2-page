@@ -14,7 +14,9 @@ $this->title = 'Редактирование: ' . $model->title;
     <div class="row">
         <div class="col s12">
 		    <?= $this->render('_form', [
-		        'model' => $model,
+				'model' => $model,
+				'searchModel' => $searchModel,
+				'dataProvider' => $dataProvider,
 		    ]) ?>
 		</div>
 	</div>

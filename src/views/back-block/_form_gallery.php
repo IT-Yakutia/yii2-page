@@ -11,40 +11,42 @@ use uraankhayayaal\page\models\PageBlock;
 ?>
 
 <div class="page-gallery-form">
-
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
     <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#page_block_gallery_tab_main">Основное</a></li>
         <li class="tab col s3 <?= $model->isNewRecord ? 'disabled' : ''; ?>"><a href="#page_block_gallery_tab" class="<?= $model->isNewRecord ? 'tooltipped' : ''; ?>" data-position="bottom" data-tooltip="Вкладка будет доступна после сохранения">Фотогалерея</a></li>
     </ul>
 
     <div class="page_block_gallery_tab_main">
-    <?php $form = ActiveForm::begin([
-        'errorCssClass' => 'red-text',
-    ]); ?>
+        <?php $form = ActiveForm::begin([
+            'errorCssClass' => 'red-text',
+        ]); ?>
 
-    <?php 
+        <?php
         if ($model->isNewRecord) {
-            /* скрытый инпут */ echo $form->field($model, 'is_publish')->hiddenInput(['value' => 0])->label(false);
+            /* скрытый инпут */
+            echo $form->field($model, 'is_publish')->hiddenInput(['value' => 0])->label(false);
         } else {
             echo WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']);
         }
-    ?>
+        ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn']) ?>
-    </div>
-    <div class="fixed-action-btn">
-        <?= Html::submitButton('<i class="material-icons">save</i>', [
-            'class' => 'btn-floating btn-large waves-effect waves-light tooltipped',
-            'title' => 'Сохранить',
-            'data-position' => "left",
-            'data-tooltip' => "Сохранить",
-        ]) ?>
-    </div>
+        <div class="form-group">
+            <?= Html::submitButton('Сохранить', ['class' => 'btn']) ?>
+        </div>
+        <div class="fixed-action-btn">
+            <?= Html::submitButton('<i class="material-icons">save</i>', [
+                'class' => 'btn-floating btn-large waves-effect waves-light tooltipped',
+                'title' => 'Сохранить',
+                'data-position' => "left",
+                'data-tooltip' => "Сохранить",
+            ]) ?>
+        </div>
 
-    <?php ActiveForm::end(); ?>
+        <?php ActiveForm::end(); ?>
     </div>
 
     <div id="page_block_gallery_tab">

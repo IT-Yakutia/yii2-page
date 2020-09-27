@@ -1,14 +1,11 @@
 <?php
 
-use yii\helpers\Html;
-
-
 /* @var $this yii\web\View */
-/* @var $model common\modules\page\models\Page */
+/* @var $model common\modules\page\models\PageBlockChart */
 
 $this->title = 'Новый график';
-// $this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
-// $this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = ['label' => 'Pages', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="page-block-chart-create">
     <div class="row">

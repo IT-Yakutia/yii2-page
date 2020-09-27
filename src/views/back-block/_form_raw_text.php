@@ -10,7 +10,8 @@ use yii\helpers\Url;
 ?>
 
 <div class="page-raw-text-form">
-
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>

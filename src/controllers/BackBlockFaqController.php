@@ -84,11 +84,12 @@ class BackBlockFaqController extends Controller
     {
         $searchModel = new PageBlockFaqSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $block_id);
+        $model = PageBlock::findOne($block_id);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'block_id' => $block_id
+            'model' => $model,
         ]);
     }
 

@@ -12,11 +12,18 @@ use yii\helpers\Url;
 /* @var $searchModel common\modules\page\models\PageBlockChartSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Добавление новых данных в график: ' . $model->title;
+$this->title = ($model->chart_type === PageBlockChart::LINE ? 'Добавление новых графиков в блок: ' : 'Добавление новых параметров в график блока: ') . $model->title;
 ?>
+
 <div class="page-block-chart-index">
     <div class="row">
         <div class="col s12">
+            <p></p>
+            <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?> |
+            <?= Html::a('к блоку: <b>' . $model->title . '</b>', ['back-block/update', 'id' => $model->id], Yii::$app->params['nav_options']) ?>
+            <?php if ($model->chart_type === PageBlockChart::LINE) { ?>
+               | <?= Html::a('к заголовкам', ['back-block-chart-label/index', 'block_id' => $model->id], Yii::$app->params['nav_options']) ?>
+            <?php } ?>
             <p>
                 <?= Html::a('Добавить', ['create', 'block_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>
@@ -64,14 +71,13 @@ $this->title = 'Добавление новых данных в график: ' 
                             } else {
                                 return '';
                             }
-                            
                         }
                     ],
                     [
                         'attribute' => 'color',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            $color = '<p style="background:'.$model->color.';color:'.$model->color.'">color</p>';
+                            $color = '<p style="background:' . $model->color . ';color:' . $model->color . '">color</p>';
                             return Html::a($color, ['update', 'id' => $model->id]);
                         }
                     ],

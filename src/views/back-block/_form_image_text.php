@@ -11,7 +11,8 @@ use yii\helpers\Url;
 ?>
 
 <div class="page-image-text-form">
-
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>
@@ -21,7 +22,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'photo')->widget(Cropper::class, [
-        'aspectRatio' => 380/380,
+        'aspectRatio' => 380 / 380,
         'maxSize' => [1380, 1380, 'px'],
         'minSize' => [10, 10, 'px'],
         'startSize' => [100, 100, '%'],

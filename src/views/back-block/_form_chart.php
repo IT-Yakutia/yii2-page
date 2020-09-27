@@ -10,6 +10,25 @@ use uraankhayayaal\page\models\PageBlockChart;
 ?>
 
 <div class="page-chart-form">
+    <p></p>
+    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
+    <?php if (!$model->isNewRecord) { ?>
+        <?php
+        $type = $model->chart_type === PageBlockChart::LINE ? 'графики' : 'данные';
+        ?>
+        <p></p>
+        <div class="row">
+            <div class="col s12 m8">
+                <?= Html::a("Добавить $type", ['back-block-chart/index', 'block_id' => $model->id], ['class' => 'btn']) ?>
+                <?php
+                if ($model->chart_type === PageBlockChart::LINE) {
+                ?>
+                    <?= Html::a('Добавить заголовки', ['back-block-chart-label/index', 'block_id' => $model->id], ['class' => 'btn']) ?>
+                <?php }
+                ?>
+            </div>
+        </div>
+    <?php } ?>
 
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
@@ -53,37 +72,6 @@ use uraankhayayaal\page\models\PageBlockChart;
     <p></p>
 
     <?php if (!$model->isNewRecord) { ?>
-
-        <div class="row">
-            <div class="col s12">
-                <?php
-                $type = $model->chart_type === PageBlockChart::LINE ? 'графики' : 'данные';
-
-                if ($model->chart_type === PageBlockChart::LINE) {
-                    echo Html::a(
-                        'Добавить заголовки',
-                        [
-                            '/page/back-block-chart-label/index',
-                            'block_id' => $model->id
-                        ],
-                        ['class' => 'btn']
-                    );
-                    echo '<p></p>';
-                }
-
-                echo Html::a(
-                    "Добавить $type",
-                    [
-                        '/page/back-block-chart/index',
-                        'block_id' => $model->id
-                    ],
-                    ['class' => 'btn']
-                );
-
-                ?>
-            </div>
-        </div>
-
         <p></p>
         <div class="row">
             <div class="col s12 m12 l12 xl8">
