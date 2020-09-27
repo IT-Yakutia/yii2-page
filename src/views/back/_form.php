@@ -13,8 +13,8 @@ use yii\widgets\ActiveForm;
 
 <div class="page-form">
     <p></p>
-    <?= Html::a('На главную', ['/'], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к страницам', ['index'], Yii::$app->params['nav_options']) ?>
+    <?= Html::a('Главная', ['/']) ?> /
+    <?= Html::a('Страницы', ['index']) ?>
     <p></p>
     <ul class="tabs">
         <li class="tab col s3"><a class="active" href="#page_tab_main">Основное</a></li>

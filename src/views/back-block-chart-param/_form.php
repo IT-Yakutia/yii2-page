@@ -13,17 +13,17 @@ use yii\widgets\ActiveForm;
 
 <div class="page-block-chart-param-form">
     <p></p>
-    <?= Html::a('к странице: <b>' . $model->chart->block->page->title . '</b>', ['back/update', 'id' => $model->chart->block->page->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к блоку: <b>' . $model->chart->block->title . '</b>', ['back-block/update', 'id' => $model->chart->block->id], Yii::$app->params['nav_options']) ?> | 
-    <?= Html::a('к графикам', ['back-block-chart/index', 'block_id' => $model->chart->block->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к графику: <b>' . $model->chart->title . '</b>', ['back-block-chart/update', 'id' => $model->chart->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к заголовкам', ['back-block-chart-label/index', 'block_id' => $model->chart->block->id], Yii::$app->params['nav_options']) ?>
-    
+    <?= Html::a('Главная', ['/']) ?> /
+    <?= Html::a('Страницы', ['back/index']) ?> /
+    <?= Html::a($model->chart->block->page->title, ['back/update', 'id' => $model->chart->block->page->id]) ?> /
+    <?= Html::a($model->chart->block->title, ['back-block/update', 'id' => $model->chart->block->id]) ?> /
+    <?= Html::a('Графики', ['back-block-chart/index', 'block_id' => $model->chart->block->id]) ?> /
+    <?= Html::a($model->chart->title, ['back-block-chart/update', 'id' => $model->chart->id]) ?> /
+    <?= Html::a('Заголовки', ['back-block-chart-label/index', 'block_id' => $model->chart->block->id]) ?>
+
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>
-
-    <?= WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']); ?>
 
     <?php
     if ($model->chart->block->chart_type === PageBlockChart::LINE) {
@@ -32,6 +32,7 @@ use yii\widgets\ActiveForm;
         }
         echo $form->field($model, 'title')->dropDownList($chart_labels);
     } else {
+        echo WCheckbox::widget(['model' => $model, 'attribute' => 'is_publish']);
         echo $form->field($model, 'title')->textInput(['maxlength' => true]);
     }
     ?>

@@ -11,10 +11,12 @@ use yii\widgets\ActiveForm;
 
 <div class="page-block-chart-label-form">
     <p></p>
-    <?= Html::a('к странице: <b>' . $model->block->page->title . '</b>', ['back/update', 'id' => $model->block->page->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к блоку: <b>' . $model->block->title . '</b>', ['back-block/update', 'id' => $model->block->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к заголовкам', ['back-block-chart-label/index', 'block_id' => $model->block->id], Yii::$app->params['nav_options']) ?> |
-    <?= Html::a('к графикам', ['back-block-chart/index', 'block_id' => $model->block->id], Yii::$app->params['nav_options']) ?>
+    <?= Html::a('Главная', ['/']) ?> /
+    <?= Html::a('Страницы', ['back/index']) ?> /
+    <?= Html::a($model->block->page->title, ['back/update', 'id' => $model->block->page->id]) ?> /
+    <?= Html::a($model->block->title, ['back-block/update', 'id' => $model->block->id]) ?> /
+    <?= Html::a('Заголовки', ['back-block-chart-label/index', 'block_id' => $model->block->id]) ?> /
+    <?= Html::a('Графики', ['back-block-chart/index', 'block_id' => $model->block->id]) ?>
     <?php $form = ActiveForm::begin([
         'errorCssClass' => 'red-text',
     ]); ?>

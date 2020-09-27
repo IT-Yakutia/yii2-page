@@ -15,8 +15,10 @@ $this->title = 'Вкладки FAQ';
     <div class="row">
         <div class="col s12">
             <p></p>
-            <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?> |
-            <?= Html::a('к блоку: <b>' . $model->title . '</b>', ['back-block/update', 'id' => $model->id], Yii::$app->params['nav_options']) ?>
+            <?= Html::a('Главная', ['/']) ?> /
+            <?= Html::a('Страницы', ['back/index']) ?> /
+            <?= Html::a($model->page->title, ['back/update', 'id' => $model->page->id]) ?> /
+            <?= Html::a($model->title, ['back-block/update', 'id' => $model->id]) ?>
             <p>
                 <?= Html::a('Добавить новую вкладку', ['back-block-faq/create', 'block_id' => $model->id], ['class' => 'btn btn-success']) ?>
             </p>

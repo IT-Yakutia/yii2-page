@@ -2,20 +2,21 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\Breadcrumbs;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\page\models\PageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Страницы';
-// $this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="page-index">
     <div class="row">
         <div class="col s12">
             <p></p>
-            <?= Html::a('На главную', ['/'], Yii::$app->params['nav_options']) ?>
+            <?= Html::a('Главная', ['/']) ?>
             <p>
                 <?= Html::a('Добавить', ['create'], ['class' => 'btn btn-success']) ?>
             </p>

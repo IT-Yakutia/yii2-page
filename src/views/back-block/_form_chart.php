@@ -11,7 +11,9 @@ use uraankhayayaal\page\models\PageBlockChart;
 
 <div class="page-chart-form">
     <p></p>
-    <?= Html::a('к странице: <b>' . $model->page->title . '</b>', ['back/update', 'id' => $model->page->id], Yii::$app->params['nav_options']) ?>
+    <?= Html::a('Главная', ['/']) ?> /
+    <?= Html::a('Страницы', ['back/index']) ?> /
+    <?= Html::a($model->page->title, ['back/update', 'id' => $model->page->id]) ?>
     <?php if (!$model->isNewRecord) { ?>
         <?php
         $type = $model->chart_type === PageBlockChart::LINE ? 'графики' : 'данные';
