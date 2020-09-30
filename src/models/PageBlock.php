@@ -198,33 +198,13 @@ class PageBlock extends ActiveRecord
         }
         $data['data']['datasets'] = $datasets;
 
-        $max = str_split((string)$max);
-
-        if (isset($max[1]) && $max[1] < 5) {
-            foreach ($max as $key => $num) {
-                if ($key === 0) {
-                    continue;
-                } elseif ($key === 1) {
-                    $max[$key] = 5;
-                } else {
-                    $max[$key] = 0;
-                }
-            }
-        } else {
-            foreach ($max as $key => $num) {
-                $max[$key] = $key === 0 ? $num + 1 : 0;
-            }
-        }
-
-        $max = (int)implode('', $max);
-
         $options = [
             'scales' => [
                 'yAxes' => [[
                     'display' => true,
                     'ticks' => [
                         'beginAtZero' => true,
-                        'max' => $max,
+                        'max' => $max + round($max / 10),
                         'min' => 0
                     ]
                 ]]
