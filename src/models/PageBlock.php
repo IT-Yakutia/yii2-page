@@ -198,13 +198,22 @@ class PageBlock extends ActiveRecord
         }
         $data['data']['datasets'] = $datasets;
 
+        $precision = count(str_split((string)$max)) - 2;
+        if($precision <= 0) {
+            $precision = 1;
+        }
+
+        $max = $max / pow(10, $precision);
+        $max = ceil($max);
+        $max =  $max * pow(10, $precision);
+
         $options = [
             'scales' => [
                 'yAxes' => [[
                     'display' => true,
                     'ticks' => [
                         'beginAtZero' => true,
-                        'max' => $max + round($max / 10),
+                        'max' => $max,
                         'min' => 0
                     ]
                 ]]
