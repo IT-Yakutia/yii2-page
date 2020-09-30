@@ -1,6 +1,8 @@
 <?php
 
-use dosamigos\chartjs\ChartJs;
+// use dosamigos\chartjs\ChartJs;
+
+use phpnt\chartJS\ChartJs;
 
 ?>
 

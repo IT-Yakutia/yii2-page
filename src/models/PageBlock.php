@@ -124,13 +124,13 @@ class PageBlock extends ActiveRecord
     public function getCharts($publish = false)
     {
         $charts = $this->hasMany(PageBlockChart::class, ['block_id' => 'id'])->where(['is_publish' => 1])->all();
-        
+
         switch ($this->chart_type) {
             case (PageBlockChart::PIE):
                 return $this->getPieChartsData($charts);
             case (PageBlockChart::BAR):
                 return $this->getBarChartsData($charts);
-            case(PageBlockChart::LINE): 
+            case (PageBlockChart::LINE):
                 return $this->getLineCharsData($charts);
             default:
                 return ['type' => 'bar'];
@@ -174,16 +174,20 @@ class PageBlock extends ActiveRecord
     {
         $data = [
             'type' => 'bar',
-            'options' => [],
             'data' => [
                 'labels' => [''],
                 'datasets' => []
             ],
         ];
 
+        $max = 0;
         $datasets = [];
         if (!empty($charts)) {
             foreach ($charts as $chart) {
+                if ($max < $chart->value) {
+                    $max = $chart->value;
+                }
+
                 $set = [];
                 $set['data'][] = $chart->value;
                 $set['backgroundColor'][] = $chart->color;
@@ -193,6 +197,41 @@ class PageBlock extends ActiveRecord
             }
         }
         $data['data']['datasets'] = $datasets;
+
+        $max = str_split((string)$max);
+
+        if (isset($max[1]) && $max[1] < 5) {
+            foreach ($max as $key => $num) {
+                if ($key === 0) {
+                    continue;
+                } elseif ($key === 1) {
+                    $max[$key] = 5;
+                } else {
+                    $max[$key] = 0;
+                }
+            }
+        } else {
+            foreach ($max as $key => $num) {
+                $max[$key] = $key === 0 ? $num + 1 : 0;
+            }
+        }
+
+        $max = (int)implode('', $max);
+
+        $options = [
+            'scales' => [
+                'yAxes' => [[
+                    'display' => true,
+                    'ticks' => [
+                        'beginAtZero' => true,
+                        'max' => $max,
+                        'min' => 0
+                    ]
+                ]]
+            ],
+        ];
+
+        $data['options'] = $options;
 
         return $data;
     }
@@ -209,8 +248,8 @@ class PageBlock extends ActiveRecord
 
         $labels = [];
         $chart_lables = $this->pageBlockChartLabels;
-        foreach($chart_lables as $label) {
-            if($label->is_publish === 1) {
+        foreach ($chart_lables as $label) {
+            if ($label->is_publish === 1) {
                 $labels[] = $label->title;
             }
         }
@@ -224,9 +263,9 @@ class PageBlock extends ActiveRecord
 
                 $params = [];
                 $chart_params = $chart->params;
-                foreach($chart_params as $param) {
-                    foreach($labels as $label) {
-                        if($label === $param->title) {
+                foreach ($chart_params as $param) {
+                    foreach ($labels as $label) {
+                        if ($label === $param->title) {
                             $params[] = $param->value;
                         }
                     }
@@ -239,12 +278,5 @@ class PageBlock extends ActiveRecord
         $data['data']['datasets'] = $datasets;
 
         return $data;
-    }
-
-    private function colorToRgba($color)
-    {
-        $hex = strtolower($color);
-        list($r, $g, $b) = sscanf($hex, "#%02x%02x%02x");
-        return "rgba($r, $g, $b, 0.9)";
     }
 }

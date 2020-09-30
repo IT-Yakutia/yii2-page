@@ -1,10 +1,9 @@
 <?php
 
-use dosamigos\chartjs\ChartJs;
+use phpnt\chartJS\ChartJs as ChartJs;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
-use uraankhayayaal\page\models\PageBlock;
 use uraankhayayaal\page\models\PageBlockChart;
 
 ?>
