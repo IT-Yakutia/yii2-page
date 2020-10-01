@@ -189,7 +189,7 @@ class PageBlock extends ActiveRecord
 
                 $set = [];
                 $set['data'][] = $chart->value;
-                $set['backgroundColor'][] = $this->hex2rgba($chart->color, 0.1);
+                $set['backgroundColor'][] = $this->hex2rgba($chart->color, 0.5);
                 $set['borderColor'][] = "$chart->color";
                 $set['borderWidth'][] = 1;
                 $set['label'] = $chart->title;
