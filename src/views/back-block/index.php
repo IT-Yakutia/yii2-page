@@ -2,7 +2,7 @@
 
 use uraankhayayaal\materializecomponents\grid\MaterialActionColumn;
 use uraankhayayaal\page\models\PageBlock;
-use yii\bootstrap4\Html;
+use yii\helpers\Html;
 use yii\grid\GridView;
 use uraankhayayaal\sortable\grid\Column;
 use yii\grid\SerialColumn;
