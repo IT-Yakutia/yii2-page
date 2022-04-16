@@ -76,7 +76,7 @@ class PageBlock extends ActiveRecord
         return [
             [['type'], 'required'],
             [['content'], 'string'],
-            [['sort', 'page_id', 'chart_type', 'is_publish', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['sort', 'page_id', 'chart_type', 'is_publish', 'status', 'created_at', 'updated_at', 'type'], 'integer'],
             [['title', 'photo'], 'string', 'max' => 255],
         ];
     }
@@ -85,9 +85,10 @@ class PageBlock extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Заголовок',
+            'title' => 'Название блока страницы',
             'content' => 'Содержание',
             'photo' => 'Фото',
+            'type' => 'Тип блока',
             'sort' => 'Сортироваочный вес',
             'page_id' => 'Страница',
             'chart_type' => 'Тип графика',
