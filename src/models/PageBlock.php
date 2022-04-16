@@ -85,16 +85,16 @@ class PageBlock extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'photo' => 'Photo',
-            'sort' => 'Sort',
-            'page_id' => 'Page ID',
-            'chart_type' => 'Chart Type',
-            'is_publish' => 'Is Publish',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'title' => 'Заголовок',
+            'content' => 'Содержание',
+            'photo' => 'Фото',
+            'sort' => 'Сортироваочный вес',
+            'page_id' => 'Страница',
+            'chart_type' => 'Тип графика',
+            'is_publish' => 'Опубликовать',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
         ];
     }
 

@@ -38,15 +38,15 @@ class PageBlockFaq extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'block_id' => 'Page Block ID',
+            'title' => 'Вопрос',
+            'content' => 'Ответ',
+            'block_id' => 'Блок страницы',
             
-            'sort' => 'Sort',
-            'is_publish' => 'Is Publish',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'sort' => 'Сортировочный вес',
+            'is_publish' => 'Опубликовать',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
         ];
     }
 

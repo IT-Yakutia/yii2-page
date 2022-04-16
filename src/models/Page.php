@@ -87,17 +87,17 @@ class Page extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'content' => 'Content',
-            'photo' => 'Photo',
-            'sort' => 'Sort',
-            'no_title' => 'No Title',
+            'title' => 'Заголовок',
+            'content' => 'Содержание',
+            'photo' => 'Иконка',
+            'sort' => 'Сортировочный вес',
+            'no_title' => 'Не показывать заголовок',
             'slug' => 'Slug',
-            'user_id' => 'User ID',
-            'is_publish' => 'Is Publish',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'user_id' => 'Автор',
+            'is_publish' => 'Опубликовать',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
         ];
     }
 

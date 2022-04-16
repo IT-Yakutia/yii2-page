@@ -38,13 +38,13 @@ class PageBlockChartParam extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'sort' => 'Sort',
-            'chart_id' => 'Chart ID',
-            'is_publish' => 'Is Publish',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'title' => 'Заголовок',
+            'sort' => 'Сортировочный вес',
+            'chart_id' => 'График',
+            'is_publish' => 'Опубликовать',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
         ];
     }
 

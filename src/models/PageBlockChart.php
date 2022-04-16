@@ -53,15 +53,15 @@ class PageBlockChart extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'value' => 'Value',
-            'color' => 'Color',
-            'sort' => 'Sort',
-            'block_id' => 'Block ID',
-            'is_publish' => 'Is Publish',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'title' => 'Заголовок',
+            'value' => 'Значение',
+            'color' => 'Цвет',
+            'sort' => 'Сортировочный вес',
+            'block_id' => 'Блок страницы',
+            'is_publish' => 'Опубликовать',
+            'status' => 'Статус',
+            'created_at' => 'Создан',
+            'updated_at' => 'Изменен',
         ];
     }
 
