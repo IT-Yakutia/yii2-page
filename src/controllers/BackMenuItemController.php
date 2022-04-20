@@ -3,12 +3,13 @@
 namespace uraankhayayaal\page\controllers;
 
 use Yii;
-use uraankhayayaal\page\models\PageMenu;
-use uraankhayayaal\page\models\PageMenuItem;
-use uraankhayayaal\page\models\PageMenuItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use uraankhayayaal\page\models\PageMenu;
+use uraankhayayaal\page\models\PageMenuItem;
+use uraankhayayaal\page\models\PageMenuItemSearch;
+use uraankhayayaal\sortable\actions\Sorting;
 
 class BackMenuItemController extends Controller
 {
@@ -37,7 +38,7 @@ class BackMenuItemController extends Controller
     {
         return [
             'sorting' => [
-                'class' => \backend\widgets\sortable\actions\Sorting::className(),
+                'class' => Sorting::className(),
                 'query' => PageMenuItem::find(),
             ],
         ];

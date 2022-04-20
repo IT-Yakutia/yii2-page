@@ -5,6 +5,7 @@ namespace uraankhayayaal\page\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
+use uraankhayayaal\sortable\behaviors\Sortable;
 
 class PageMenuItem extends \yii\db\ActiveRecord
 {
@@ -18,7 +19,7 @@ class PageMenuItem extends \yii\db\ActiveRecord
         return [
             TimestampBehavior::className(),
             'sortable' => [
-                'class' => \backend\widgets\sortable\behaviors\Sortable::className(),
+                'class' => Sortable::className(),
                 'query' => self::find(),
             ],
             [
