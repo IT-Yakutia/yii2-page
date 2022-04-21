@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Url;
 use uraankhayayaal\page\models\PageMenu;
 use uraankhayayaal\page\models\PageMenuItem;
 use uraankhayayaal\page\models\PageMenuItemSearch;
@@ -44,12 +45,15 @@ class BackMenuItemController extends Controller
         ];
     }
 
-    public function actionIndex($page_menu_id)
+    public function actionIndex($page_menu_id, $menu_item_id = null)
     {
         $page_menu = $this->findPageMenuModel($page_menu_id);
 
         $searchModel = new PageMenuItemSearch();
+        $searchModel->parent_id = $menu_item_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $page_menu->id);
+
+        Url::remember();
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -65,15 +69,16 @@ class BackMenuItemController extends Controller
         ]);
     }
 
-    public function actionCreate($page_menu_id)
+    public function actionCreate($page_menu_id, $menu_item_id = null)
     {
         $model = new PageMenuItem();
         $page_menu = $this->findPageMenuModel($page_menu_id);
         $model->page_menu_id = $page_menu->id;
+        $model->parent_id = $menu_item_id;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно создана!');
-            return $this->redirect(['index', 'page_menu_id' => $page_menu->id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('create', [
@@ -87,7 +92,7 @@ class BackMenuItemController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('success', 'Запись успешно изменена!');
-            return $this->redirect(['index', 'page_menu_id' => $model->page_menu_id]);
+            return $this->redirect(Url::previous());
         }
 
         return $this->render('update', [
@@ -98,10 +103,9 @@ class BackMenuItemController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $page_menu_id = $model->page_menu_id;
         if($model->delete() !== false)
             Yii::$app->session->setFlash('success', 'Запись успешно удалена!');
-        return $this->redirect(['index', 'page_menu_id' => $page_menu_id]);
+        return $this->redirect(Url::previous());
     }
 
     protected function findModel($id)

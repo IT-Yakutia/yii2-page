@@ -18,7 +18,7 @@ class PageMenuItemSearch extends PageMenuItem
     public function rules()
     {
         return [
-            [['id', 'user_id', 'page_menu_id', 'page_id', 'sort', 'is_publish', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'user_id', 'page_menu_id', 'page_id', 'sort', 'is_publish', 'status', 'created_at', 'updated_at', 'parent_id'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -70,6 +70,8 @@ class PageMenuItemSearch extends PageMenuItem
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
+
+        $query->andWhere(['parent_id' => $this->parent_id]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
 

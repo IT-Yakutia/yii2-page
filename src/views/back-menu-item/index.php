@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use uraankhayayaal\materializecomponents\grid\MaterialActionColumn;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\page\models\PageMenuItemSearch */
@@ -14,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="row">
         <div class="col s12">
             <p>
-                <?= Html::a('Добавить', ['create', 'page_menu_id' => $page_menu->id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a('Добавить', ['create', 'page_menu_id' => $page_menu->id, 'menu_item_id' => $searchModel->parent_id], ['class' => 'btn btn-success']) ?>
             </p>
             <div class="fixed-action-btn">
                 <?= Html::a('<i class="material-icons">add</i>', ['create', 'page_menu_id' => $page_menu->id], [
@@ -42,13 +43,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    ['class' => 'uraankhayayaal\materializecomponents\grid\MaterialActionColumn', 'template' => '{update} {delete}'],
+                    ['class' => MaterialActionColumn::class, 'template' => '{update} {view}', 
+                        'buttons' => [
+                            'view' => function($url, $model, $key) {     // render your custom button
+                                return Html::a('<i class="material-icons">pageview</i>',['/page/back-menu-item/index', 'page_menu_id' => $model->page_menu_id, 'menu_item_id' => $model->id]);
+                            }
+                        ]
+                    ],
 
                     [
                         'attribute' => 'name',
                         'format' => 'raw',
                         'value' => function($model){
-                            return Html::a($model->name,['update', 'id' => $model->id]);
+                            return Html::a($model->name . ($model->getPageMenuItems()->count() > 0 ? (' (' . $model->getPageMenuItems()->count() . ')') : ''),['/page/back-menu-item/index', 'page_menu_id' => $model->page_menu_id, 'menu_item_id' => $model->id]);
                         }
                     ],
                     [
@@ -64,17 +71,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                         'value' => function($model){
                             if(!isset($model->page_id)) return null;
-                            return Html::a('<span class="grey-text">'.Yii::$app->params['domain'].'</span>'.$model->page->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->page->slug]), ['target' => "_blank"]);
+                            return Html::a('<span class="grey-text">'.Yii::$app->params['domain'].'</span>/'.$model->page->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->page->slug]), ['target' => "_blank"]);
                         }
                     ],
                     [
                         'attribute' => 'url',
                         'format' => 'url',
                     ],
-                    [
-                        'attribute' => 'created_at',
-                        'format' => 'datetime',
-                    ],
+                    ['class' => MaterialActionColumn::class, 'template' => '{delete}'],
                     [
                         'class' => \uraankhayayaal\sortable\grid\Column::className(),
                     ],
