@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'slug',
                         'format' => 'raw',
                         'value' => function ($model) {
-                            return Html::a('<span class="grey-text">' . Yii::$app->params['domain'] . '</span>' . $model->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank"]);
+                            return Html::a('<span class="grey-text">' . Yii::$app->params['domain'] . '</span>/' . $model->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank"]);
                         },
                     ],
                     [

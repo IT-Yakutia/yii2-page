@@ -48,7 +48,7 @@ use yii\widgets\ActiveForm;
             </div>
 
             <div class="input-field">
-                <input disabled value="<?= Yii::$app->params['domain'] . $model->slug; ?>" id="disabled" type="text" class="validate">
+                <input disabled value="<?= Yii::$app->params['domain'] . '/' . $model->slug; ?>" id="disabled" type="text" class="validate">
                 <label for="disabled">Асолютный url страницы</label>
                 <?= Html::a("Перейти", Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank"]); ?>
             </div>
