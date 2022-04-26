@@ -1,9 +1,12 @@
 <?php
 
-use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
+use uraankhayayaal\materializecomponents\checkbox\WCheckbox;
+use uraankhayayaal\page\assets\PageAsset;
+
+PageAsset::register($this);
 
 /* @var $this yii\web\View */
 /* @var $model common\modules\page\models\Page */
@@ -43,14 +46,16 @@ use yii\widgets\ActiveForm;
 
         <?php if (!$model->isNewRecord) { ?>
             <div class="input-field">
-                <input disabled value="<?= '/' . $model->slug; ?>" id="disabled" type="text" class="validate">
+                <i class="material-icons prefix tooltipped" data-position="top" data-tooltip="Копировать в буфер" style="cursor: pointer;" onclick="clipboardCopy('pageRelativeUrl')">content_copy</i>
+                <input disabled value="<?= '/' . $model->slug; ?>" id="pageRelativeUrl" type="text" class="validate">
                 <label for="disabled">Относительный url страницы</label>
             </div>
 
             <div class="input-field">
-                <input disabled value="<?= Yii::$app->params['domain'] . '/' . $model->slug; ?>" id="disabled" type="text" class="validate">
+                <i class="material-icons prefix tooltipped" data-position="top" data-tooltip="Копировать в буфер" style="cursor: pointer;" onclick="clipboardCopy('pageAbsoluteUrl')">content_copy</i>
+                <input disabled value="<?= Yii::$app->params['domain'] . '/' . $model->slug; ?>" id="pageAbsoluteUrl" type="text" class="validate">
                 <label for="disabled">Асолютный url страницы</label>
-                <?= Html::a("Перейти", Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank"]); ?>
+                <?= Html::a("Посмотреть как страница выглядит", Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank", 'class' => 'tooltipped', 'data-position' => "top", 'data-tooltip' => "Открыть страницу в новой вкладке"]); ?>
             </div>
         <?php } ?>
 
