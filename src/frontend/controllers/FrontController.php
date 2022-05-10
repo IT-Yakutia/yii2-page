@@ -1,27 +1,18 @@
 <?php
-namespace uraankhayayaal\page\controllers;
+namespace uraankhayayaal\page\frontend\controllers;
 
 use Yii;
 use uraankhayayaal\page\models\Page;
 use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 
-/**
- * Back controller
- */
 class FrontController extends Controller
 {
     public function actionView($slug)
     {
-        $view = 'view';
-        if(
-            isset(Yii::$app->params['custom_view_for_modules']) && 
-            isset(Yii::$app->params['custom_view_for_modules']['page_front']) && 
-            isset(Yii::$app->params['custom_view_for_modules']['page_front']['view'])
-        )
-            $view = Yii::$app->params['custom_view_for_modules']['page_front']['view'];
-
+		$view = Yii::$app->params['custom_view_for_modules']['page']['view'] ?? 'view';
         $model = $this->findModel($slug);
+
         return $this->render($view, [
             'model' => $model,
         ]);

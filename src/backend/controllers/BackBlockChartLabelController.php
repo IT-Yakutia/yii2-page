@@ -1,10 +1,12 @@
 <?php
 
-namespace uraankhayayaal\page\controllers;
+namespace uraankhayayaal\page\backend\controllers;
 
 use uraankhayayaal\page\models\PageBlock;
-use uraankhayayaal\page\models\PageBlockChart;
-use uraankhayayaal\page\models\PageBlockChartSearch;
+use uraankhayayaal\page\models\PageBlockChartLabel;
+use uraankhayayaal\page\models\PageBlockChartLabelSearch;
+use uraankhayayaal\page\models\PageBlockChartParam;
+use uraankhayayaal\page\models\PageBlockChartParamSearch;
 use uraankhayayaal\sortable\actions\Sorting;
 use Yii;
 use yii\filters\AccessControl;
@@ -12,7 +14,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
-class BackBlockChartController extends Controller
+class BackBlockChartLabelController extends Controller
 {
     public function behaviors()
     {
@@ -22,7 +24,7 @@ class BackBlockChartController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['page']
+                        'permissions' => ['page']
                     ]
                 ]
             ],
@@ -40,7 +42,7 @@ class BackBlockChartController extends Controller
         return [
             'sorting' => [
                 'class' => Sorting::class,
-                'query' => PageBlockChart::find(),
+                'query' => PageBlockChartLabel::find(),
             ],
         ];
     }
@@ -48,7 +50,7 @@ class BackBlockChartController extends Controller
     public function actionIndex($block_id)
     {
         $model = PageBlock::findOne($block_id);
-        $searchModel = new PageBlockChartSearch();
+        $searchModel = new PageBlockChartLabelSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $block_id);
 
         return $this->render('index', [
@@ -60,7 +62,7 @@ class BackBlockChartController extends Controller
 
     public function actionCreate($block_id)
     {
-        $model = new PageBlockChart();
+        $model = new PageBlockChartLabel();
         $model->block_id = $block_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -107,7 +109,7 @@ class BackBlockChartController extends Controller
 
     protected function findModel($id)
     {
-        if (($model = PageBlockChart::findOne($id)) !== null) {
+        if (($model = PageBlockChartLabel::findOne($id)) !== null) {
             return $model;
         }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace uraankhayayaal\page\controllers;
+namespace uraankhayayaal\page\backend\controllers;
 
 use uraankhayayaal\materializecomponents\imgcropper\actions\UploadAction;
 use uraankhayayaal\sortable\actions\Sorting;
@@ -25,7 +25,7 @@ class BackBlockController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['page']
+                        'permissions' => ['page']
                     ]
                 ]
             ],

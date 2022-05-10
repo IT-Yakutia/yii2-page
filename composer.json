@@ -16,7 +16,7 @@
         "uraankhayayaal/yii2-materializecomponents": "*",
         "uraankhayayaal/yii2-redactor": "*",
         "kartik-v/yii2-widget-colorinput": "*",
-        "phpnt/yii2-chartjs": "*",
+        "deryabinsergey/yii2-chartjs": "*",
         "yiisoft/yii2-bootstrap4": "*"
     },
     "autoload": {

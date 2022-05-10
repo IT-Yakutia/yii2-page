@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return 
                                 '<div class="input-field"><i class="material-icons prefix tooltipped" data-position="top" data-tooltip="Копировать в буфер" style="cursor: pointer;" onclick="clipboardCopy(\'pageRelativeUrl-'.$model->id.'\')">content_copy</i>'
                                 . '<input id="pageRelativeUrl-'.$model->id.'" class="validate" type="text" disabled value="/' . $model->slug .'" /></div>'
-                                . Html::a('<span class="grey-text">' . Yii::$app->params['domain'] . '</span>/' . $model->slug, Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank", 'class' => 'tooltipped', 'data-position' => "top", 'data-tooltip' => "Открыть страницу в новой вкладке"]);
+                                . Html::a('<span class="grey-text">' . Yii::$app->params['domain'] . '</span>/' . $model->slug, Yii::$app->params['domain'] . Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank", 'class' => 'tooltipped', 'data-position' => "top", 'data-tooltip' => "Открыть страницу в новой вкладке"]);
                         },
                     ],
                     [

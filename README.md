@@ -23,7 +23,61 @@ return [
     ...
     'modules' => [
         ...
-        'page' => \uraankhayayaal\page\Module::class,
+        'page' => \uraankhayayaal\page\backend\Module::class,
+        ...
+    ],
+    ...
+];
+```
+
+Add frontend Rule for urlManagerFrontend in backend config `main.php`:
+```php
+return [
+    ...
+    'components' => [
+        ...
+	    'urlManagerFrontend' => [
+		    'class' => \yii\web\UrlManager::class,
+		    ...
+		    'rules' => [
+		        ...
+			    [ 'class' => \uraankhayayaal\page\PageUrlRule::class ],
+			    ...
+		    ],
+	    ],
+	    ...
+    ],
+    ...
+];
+```
+
+Add Module in frontend config `main.php`:
+```php
+return [
+    ...
+    'modules' => [
+        ...
+        'page' => \uraankhayayaal\page\frontend\Module::class,
+        ...
+    ],
+    ...
+];
+```
+
+Add rule to urlManager in frontend config `main.php`:
+```php
+return [
+    ...
+    'components' => [
+        ...
+        'urlManager' => [
+            ...
+            'rules' => [
+                ...
+	            [ 'class' => \uraankhayayaal\page\PageUrlRule::class ],
+	            ...
+            ],
+        ],
         ...
     ],
     ...
@@ -61,28 +115,31 @@ return [
 ];
 ```
 
-
-Usage
------
-
-
-
 Add urls in your backend project:
-
 ```php
 Url::toRoute('/page/back/index');
 ```
 
+Usage
 
-Custom view file:
+Usage
+-----
 
+For customizing front view add to frontend `params.php`:
 ```php
-'custom_view_for_modules' => [
-    'page_front' => [
-        'view' => '@frontend/views/front_page/view',
+return [
+    ...
+    'custom_view_for_modules' => [
+        'page' => [
+            'view' => '@frontend/views/page/view',
+        ],
     ],
-],
+    ...
+];
 ```
+
+Fixtures
+--------
 
 Add fixtures:
 
