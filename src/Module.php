@@ -12,14 +12,4 @@ class Module extends \yii\base\Module
      */
     public $controllerNamespace = 'uraankhayayaal\page\controllers';
     public $defaultRoute = 'front';
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-        parent::init();
-
-        // custom initialization code goes here
-    }
 }

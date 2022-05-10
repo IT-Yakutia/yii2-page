@@ -19,12 +19,20 @@
         "phpnt/yii2-chartjs": "*",
         "yiisoft/yii2-bootstrap4": "*"
     },
-    "extra": {
-        "bootstrap": "uraankhayayaal\\page\\Bootstrap"
-    },
     "autoload": {
         "psr-4": {
             "uraankhayayaal\\page\\": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     }
 }
