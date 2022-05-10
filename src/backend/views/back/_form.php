@@ -55,7 +55,7 @@ PageAsset::register($this);
                 <i class="material-icons prefix tooltipped" data-position="top" data-tooltip="Копировать в буфер" style="cursor: pointer;" onclick="clipboardCopy('pageAbsoluteUrl')">content_copy</i>
                 <input disabled value="<?= Yii::$app->params['domain'] . '/' . $model->slug; ?>" id="pageAbsoluteUrl" type="text" class="validate">
                 <label for="disabled">Асолютный url страницы</label>
-                <?= Html::a("Посмотреть как страница выглядит", Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank", 'class' => 'tooltipped', 'data-position' => "top", 'data-tooltip' => "Открыть страницу в новой вкладке"]); ?>
+                <?= Html::a("Посмотреть как страница выглядит", Yii::$app->params['domain'] . Yii::$app->urlManagerFrontend->createUrl(['/page/front/view', 'slug' => $model->slug]), ['target' => "_blank", 'class' => 'tooltipped', 'data-position' => "top", 'data-tooltip' => "Открыть страницу в новой вкладке"]); ?>
             </div>
         <?php } ?>
 

@@ -16,15 +16,23 @@
         "uraankhayayaal/yii2-materializecomponents": "*",
         "uraankhayayaal/yii2-redactor": "*",
         "kartik-v/yii2-widget-colorinput": "*",
-        "phpnt/yii2-chartjs": "*",
+        "deryabinsergey/yii2-chartjs": "*",
         "yiisoft/yii2-bootstrap4": "*"
-    },
-    "extra": {
-        "bootstrap": "uraankhayayaal\\page\\Bootstrap"
     },
     "autoload": {
         "psr-4": {
             "uraankhayayaal\\page\\": "src"
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
         }
     }
 }

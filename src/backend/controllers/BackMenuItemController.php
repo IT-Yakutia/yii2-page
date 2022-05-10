@@ -1,6 +1,6 @@
 <?php
 
-namespace uraankhayayaal\page\controllers;
+namespace uraankhayayaal\page\backend\controllers;
 
 use Yii;
 use yii\web\Controller;
@@ -18,16 +18,16 @@ class BackMenuItemController extends Controller
     {
         return [
             'access' => [
-                'class' => \yii\filters\AccessControl::className(),
+                'class' => \yii\filters\AccessControl::class,
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['page']
+                        'permissions' => ['page']
                     ]
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],

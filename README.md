@@ -8,74 +8,138 @@ Installation
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 Either run
-
 ```sh
 php composer.phar require --prefer-dist uraankhayayaal/yii2-page "*"
 ```
-
 or add
-
-```json
-"uraankhayayaal/yii2-page": "*"
+```json lines
+"uraankhayayaal/yii2-page" : "*"
 ```
-
 to the require section of your `composer.json` file.
 
-
-Usage
------
-
-Once the extension is installed, simply add in your console config:
-
+Add Module in backend config `main.php`:
 ```php
-'controllerMap' => [
+return [
     ...
-    'migrate' => [
+    'modules' => [
         ...
-        'migrationPath' => [
-            ...
-            '@uraankhayayaal/page/src/migrations',
-            ...
-        ],
+        'page' => \uraankhayayaal\page\backend\Module::class,
+        ...
     ],
-],
+    ...
+];
 ```
 
+Add frontend Rule for urlManagerFrontend in backend config `main.php`:
+```php
+return [
+    ...
+    'components' => [
+        ...
+	    'urlManagerFrontend' => [
+		    'class' => \yii\web\UrlManager::class,
+		    ...
+		    'rules' => [
+		        ...
+			    [ 'class' => \uraankhayayaal\page\PageUrlRule::class ],
+			    ...
+		    ],
+	    ],
+	    ...
+    ],
+    ...
+];
+```
+
+Add Module in frontend config `main.php`:
+```php
+return [
+    ...
+    'modules' => [
+        ...
+        'page' => \uraankhayayaal\page\frontend\Module::class,
+        ...
+    ],
+    ...
+];
+```
+
+Add rule to urlManager in frontend config `main.php`:
+```php
+return [
+    ...
+    'components' => [
+        ...
+        'urlManager' => [
+            ...
+            'rules' => [
+                ...
+	            [ 'class' => \uraankhayayaal\page\PageUrlRule::class ],
+	            ...
+            ],
+        ],
+        ...
+    ],
+    ...
+];
+```
+
+In console config `main.php` add `migrationPath` value in `controllerMap` `migration` section:
+```php
+return [
+    ...
+    'controllerMap' => [
+        ...
+	    'migrate' => [
+		    'class' => \yii\console\controllers\MigrateController::class,
+		    'migrationPath' => [
+				'@console/migrations',
+				...
+			    '@uraankhayayaal/page/migrations',
+			    ...
+		    ],
+	    ],
+    ],
+```
 And just run the command:
 ```sh
 php yii migrate
 ```
 
-Set in common config params:
-
+Add in common `main.php`:
 ```php
 return [
-    /* ... */
+    ...
     'domain' => 'https://yourdomain.example',
+    ...
 ];
 ```
 
 Add urls in your backend project:
-
 ```php
 Url::toRoute('/page/back/index');
 ```
 
-Add RBAC roles:
+Usage
 
-```
-page
-```
+Usage
+-----
 
-Custom view file:
-
+For customizing front view add to frontend `params.php`:
 ```php
-'custom_view_for_modules' => [
-    'page_front' => [
-        'view' => '@frontend/views/front_page/view',
+return [
+    ...
+    'custom_view_for_modules' => [
+        'page' => [
+            'view' => '@frontend/views/page/view',
+        ],
     ],
-],
+    ...
+];
 ```
+
+Fixtures
+--------
 
 Add fixtures:
 
