@@ -215,7 +215,7 @@ class Page extends \yii\db\ActiveRecord
                 $photos = $item->getPhoto()->all();
                 if (!empty($photos)) {
                     foreach ($photos as $photo) {
-                        $image = '<img class="w-100" src="' . $photo->original . '" alt="gallery image">';
+                        $image = '<a class="fancybox" data-fancybox-group="gallery'.$block->id.'" href="' . $photo->original . '" title="'.$data['title'].'" alt="'.$data['title'].'"><img class="w-100" src="' . $photo->original . '" alt="gallery image"></a>';
                         $name = $photo->name;
                         $text = $photo->description;
                         $data['items'][] =

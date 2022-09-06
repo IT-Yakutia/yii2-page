@@ -135,8 +135,8 @@ class ChartBlockWidget extends Widget {
         ]
     ]; */
 
-    // public function init() {
-    //     ChartAsset::register( $this->getView() );
-    //     parent::init();
-    // }
+    public function init() {
+        ChartAsset::register( $this->getView() );
+        parent::init();
+    }
 }
