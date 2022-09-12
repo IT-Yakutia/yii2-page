@@ -23,7 +23,6 @@ $assetBundle = PhotoSwipeAsset::register($this);
 
 <?php
 $js = <<< JS
-    console.log('asdasdasdasdasdasdad');
     // $(document).ready(function () {
         //By default, plugin uses `data-fancybox-group` attribute to create galleries.
         $(".fancybox").jqPhotoSwipe({
